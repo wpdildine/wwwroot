@@ -1,0 +1,2824 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RedGate.SQL.Shared</name>
+    </assembly>
+    <members>
+        <member name="T:RedGate.SQL.Shared.Batch">
+            <summary>A batch of SQL statements.</summary>
+            <remarks>
+            A batch is a set of SQL statements that can be executed on a SQL Server. The
+            batch can contain more than one SQL statement, but this is not usually the case. A
+            batch can contain more than one line (for example, the SQL to create a stored procedure
+            might contain 100 lines).
+            </remarks>
+        </member>
+        <member name="M:RedGate.SQL.Shared.Batch.#ctor(System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="contents">The SQL statement that the batch contains</param>
+            <param name="repeating">The SQL statement that the batch contains</param>
+            <param name="marker">True if the SQL statement should not be executed but is merely a marker (eg a GO statement)</param>
+            <param name="extraCRLF">True if an extra CRLF has been appended to the SQL statement</param>
+            <param name="cancelAllRepeating">True if want to cancel all repeat blocks</param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.Batch.ExtraCRLF">
+            <summary><em>True</em> if an extra CRLF has been appended to the batch.</summary>
+            <remarks>
+                Sometimes the definitions of stored procedures, views, and so on, do not end in a
+                CRLF. If executed in SQL Query Analyzer, an extra CRLF will be appended. If this
+                flag is set, the extra CRLF will be stripped when the script is run using
+                <see cref="M:RedGate.SQL.Shared.BlockExecutor.ExecuteBlock(RedGate.SQL.Shared.ExecutionBlock,System.String,System.String,System.Boolean,System.String,System.String)">
+                ExecuteBlock</see>.
+            </remarks>
+        </member>
+        <member name="P:RedGate.SQL.Shared.Batch.Marker">
+            <summary><em>True</em> if this batch is a separator (for example, a GO statement).</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.Batch.Repeating">
+            <summary>
+            	<em>True</em> if the contents of the batch must be executed every time a command
+            is executed.
+            </summary>
+            <remarks>
+            This is set to <em>true</em> if a variable declaration is made, because the
+            variable must be declared at the beginning of every statement that is executed.
+            </remarks>
+        </member>
+        <member name="P:RedGate.SQL.Shared.Batch.CancelAllRepeating">
+            <summary>
+                Removes all currently set <see cref="P:RedGate.SQL.Shared.Batch.Repeating">Repeating</see> properties if set
+                to <em>true.</em>
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.Batch.Contents">
+            <summary>The contents of the batch.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.BlockExecutor">
+            <summary>
+            Runs the SQL code in the ExecutionBlock on the SQL Server. This action can be
+            cancelled.
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ICancellable">
+            <summary>
+            An interface for objects with operations that can be cancelled
+            </summary>
+            <remarks>
+            SQL Compare and SQL Data Compare have operations which can take a long time and may need to be cancelled. Examples include
+            executing SQL scripts, registering databases in SQL Compare and generating SQL Data Compare scripts.
+            <para>If a long-running operation is cancelled then an OperationCancelledException is thrown</para>
+            <para>See <see cref="T:RedGate.SQLDataCompare.Engine.ComparisonSession"/> for a code sample.</para>
+            </remarks>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ICancellable.CancelOperation">
+            <summary>Cancels the operation.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ICancellable.Status">
+            <summary>An event handler for providing progress feedback.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.BlockExecutor.#ctor">
+            <summary>Default constructor.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.BlockExecutor.ExecuteBlock(RedGate.SQL.Shared.ExecutionBlock,System.String,System.String)">
+            <summary>
+            Runs a block of SQL code contained in an ExecutionBlock using integrated
+            security.
+            </summary>
+            <remarks>
+            Feedback is provided via the Status event handler. See <see cref="M:RedGate.SQL.Shared.BlockExecutor.ExecuteBlock(RedGate.SQL.Shared.ExecutionBlock,System.String,System.String,System.Boolean,System.String,System.String)"/> for more details.
+            </remarks>
+            <param name="block">The block of SQL code to run.</param>
+            <param name="server">The SQL Server on which to run the code.</param>
+            <param name="database">The database on which to run the code.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.BlockExecutor.GetLast500Errors">
+            <summary>
+            Returns the last 500 errors from the %ExecuteBlock(ExecutionBlock, System.String,
+            System.String, System.Boolean, System.String, System.String)% method.
+            </summary>
+            <returns>The last 500 errors.</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.BlockExecutor.ExecuteBlock(RedGate.SQL.Shared.ExecutionBlock,System.String,System.String,System.Boolean,System.String,System.String)">
+            <summary>Runs a block of SQL code contained in an ExecutionBlock.</summary>
+            <remarks>
+            Feedback is provided via the Status event handler.
+            <para>See <see cref="M:RedGate.SQLDataCompare.Engine.SqlProvider.GetMigrationSQL"/> and <see cref="M:RedGate.SQLCompare.Engine.BuildFromDifferences"/> for code samples.
+            </para>
+            </remarks>
+            <param name="block">The block of SQL code to run.</param>
+            <param name="server">The SQL Server on which to run the code.</param>
+            <param name="database">The database on which to run the code.</param>
+            <param name="integratedSecurity"><em>True</em> to use integrated security</param>
+            <param name="userName">The user name to use to connect to the SQL Server.</param>
+            <param name="password">The password to use to connect to the SQL Server.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.BlockExecutor.CancelOperation">
+            <summary>Cancels the current operation.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.BlockExecutor.OnStatus(RedGate.SQL.Shared.StatusEventArgs)">
+            <summary>
+            Fires the Status event
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.BlockExecutor.LastCommandText">
+            <summary>
+            The last SQL command to be executed from the %ExecuteBlock(ExecutionBlock,
+            System.String, System.String, System.Boolean, System.String, System.String)%
+            method.
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.BlockExecutor.Status">
+            <summary>The event handler for status events.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.BlockSaver">
+            <summary>
+                Saves BlockExecutors using <see cref="T:RedGate.SQL.Shared.ICancellable">ICancellable</see>. This class
+                writes the contents of an Execution block to disk. The caller can specify the file
+                name and the type of encoding.
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.BlockSaver.#ctor(System.String,RedGate.SQL.Shared.EncodingType,RedGate.SQL.Shared.ExecutionBlock)">
+            <summary>Constructs a BlockSaver with all the parameters specified.</summary>
+            <param name="fileName">The file name to use.</param>
+            <param name="encoding">The type of encoding to use.</param>
+            <param name="block">The block of SQL code to use.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.BlockSaver.#ctor">
+            <summary>
+            Default constructor. You must set the FileName, EncodingType, and ExecutionBlock
+            before the BlockSaver can be run.
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.BlockSaver.SaveToFile">
+            <summary>
+            Saves a copy of the ExecutionBlock to a text file with the given encoding.
+            This function is not thread safe.
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.BlockSaver.CancelOperation">
+            <summary>Cancels the operation (used by <see cref="T:RedGate.SQL.Shared.ICancellable">ICancellable</see>).</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.BlockSaver.OnStatus(RedGate.SQL.Shared.StatusEventArgs)">
+            <summary>
+            Fires the Status event
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.BlockSaver.ExecutionBlock">
+            <summary>Sets the ExecutionBlock. You should call this only once.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.BlockSaver.EncodingType">
+            <summary>Sets the EncodingType. You should call this only once.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.BlockSaver.FileName">
+            <summary>Sets the FileName. You should call this only once.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.BlockSaver.Status">
+            <summary>Cancellable Status Handler (used by <see cref="T:RedGate.SQL.Shared.ICancellable">ICancellable</see>).</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.DataSource">
+            <summary>An abstract class for containing data source properties.</summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.IRedGateSerializable">
+            <summary>
+            This is the interface that is added to objects that you wish to serialize....
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.IRedGateSerializable.Deserialize(System.Int32,RedGate.SQL.Shared.ISerializeFormatter)">
+            <summary>
+            This method deserializes the object from the current serialization
+            </summary>
+            <param name="versionId">The version of the serialized data</param>
+            <param name="formatter"></param>
+            <returns>True if deserialized OK, false if fails or get unknown version number</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.IRedGateSerializable.Serialize(RedGate.SQL.Shared.ISerializeFormatter)">
+            <summary>
+            Serialize up you data. (Nb the version number has already been added in)
+            </summary>
+            <param name="formatter"></param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.IRedGateSerializable.Version">
+            <summary>
+            This is the current latest version of your serialized data.
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DataSource.IsDifferentSource(RedGate.SQL.Shared.DataSource)">
+            <summary>Compares the DataSource with a specified DataSource.</summary>
+            <param name="newDataSource">The data source to compare.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DataSource.Clone">
+            <summary>Creates a clone of the current DataSource.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DataSource.Deserialize(System.Int32,RedGate.SQL.Shared.ISerializeFormatter)">
+            <summary>Deserializes the object from the current serialization.</summary>
+            <returns>
+            	<em>true</em> if deserialization is successful; <em>false</em> if deserialization
+            fails or the version number is unknown.
+            </returns>
+            <param name="versionId">The version of the serialized data to use.</param>
+            <param name="formatter"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DataSource.Serialize(RedGate.SQL.Shared.ISerializeFormatter)">
+            <summary>Serialize your data. Note that the version number has already been added.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.DataSource.ServerName">
+            <summary>Gets or sets the name of the SQL Server.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.DataSource.DatabaseName">
+            <summary>Gets or sets the name of the database.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.DataSource.IsWriteable">
+            <summary>
+            Returns if this DataSource can be written to
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.DataSource.Version">
+            <summary>The current version of the serialized data.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.DiffHelper">
+            <summary>
+            A helper class used to generate side-by-side string comparisons
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DiffHelper.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DiffHelper.CompareStrings(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Returns a representation of the side-by-side differences between two strings
+            </summary>
+            <param name="string1">The first string to compare</param>
+            <param name="string2">The second string to compare</param>
+            <param name="ignoreWhiteSpace">True to ignore spaces, tabs etc.</param>
+            <param name="caseSensitive">True if the comparison is case sensitive</param>
+            <returns>A <see cref="T:RedGate.SQL.Shared.DiffHelper.ComparisonStrings"/> object representing the differences</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DiffHelper.BreakOnCRLF(System.String)">
+            <summary>
+            Break on CRLF!
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RedGate.SQL.Shared.DiffHelper.ComparisonString">
+            <summary>
+            A class representing a comparison between two single-line strings
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DiffHelper.ComparisonString.#ctor">
+             <summary>
+             Constructor
+             </summary>
+             <remarks>
+             This is not normally called externally 
+            </remarks>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DiffHelper.ComparisonString.#ctor(System.String,System.String)">
+             <summary>
+             Constructor
+             </summary>
+             <param name="leftString">The string to appear on the left</param>
+             <param name="rightString">The string to appear on the right</param>
+             <remarks>
+             This is not normally called externally 
+            </remarks>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DiffHelper.ComparisonString.#ctor(System.String,System.String,System.Boolean,System.Boolean)">
+             <summary>
+             Constructor
+             </summary>
+             <param name="leftString">The string to appear on the left</param>
+             <param name="rightString">The string to appear on the right</param>
+             <param name="ignoreWhiteSpace">True to ignore spaces, tabs etc.</param>
+             <param name="caseSensitive">True if the comparison is case sensitive</param>
+             <remarks>
+             This is not normally called externally 
+            </remarks>
+        </member>
+        <member name="P:RedGate.SQL.Shared.DiffHelper.ComparisonString.LeftString">
+            <summary>
+            The string that appears on the left
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.DiffHelper.ComparisonString.RightString">
+            <summary>
+            The string that appears on the right
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.DiffHelper.ComparisonString.Different">
+            <summary>
+            True if the two strings are different
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.DiffHelper.ComparisonString.LeftStringPresent">
+            <summary>
+            True if there is a string on the left
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.DiffHelper.ComparisonString.RightStringPresent">
+            <summary>
+            True if there is a string on the right
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.DiffHelper.ComparisonStrings">
+            <summary>
+            A collection of single-line strings
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DiffHelper.ComparisonStrings.#ctor">
+             <summary>
+             Constructor
+             </summary>
+             <remarks>
+             This is not normally called externally 
+            </remarks>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DiffHelper.ComparisonStrings.Append(RedGate.SQL.Shared.DiffHelper.ComparisonStrings)">
+            <summary>
+            Append another set of ComparisonStrings
+            </summary>
+            <param name="comparisonStrings">The object to append</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.DiffHelper.ComparisonStrings.Add(RedGate.SQL.Shared.DiffHelper.ComparisonString)">
+            <summary>
+            Add a single ComparisonString object
+            </summary>
+            <param name="value">The value to add</param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.DiffHelper.ComparisonStrings.Item(System.Int32)">
+            <summary>
+            The indexer
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.Encryption">
+            <summary>
+            This class allows the caller to encrypt and decrypt the data...
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ExceptionLogger">
+            <summary>
+            this is the exception logger....
+            It will by default not log anything to disk... However if you define the file default.ini
+            in the "%temp%\Red Gate\Exception" folder
+            [default]
+            value=1
+            then you can turn on exception logging to different levels..... 
+            1=basic (less than 2K)
+            2=include version info (around 50K)
+            3=all available information
+            4=include all thread stack information (needs support information from outside)
+            5=include minidump file....(as above)
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExceptionLogger.Log(System.Exception)">
+            <summary>
+            Log this exception
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ExceptionLogger.Folder">
+            <summary>
+            Get the Folder
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.EncodingType">
+            <summary>The Unicode types for <see cref="M:RedGate.SQL.Shared.ExecutionBlock.SaveToFile(System.String,RedGate.SQL.Shared.EncodingType)">SaveToFile</see>.</summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.EncodingType.UTF8">
+            <summary>UTF-8 encoding, without preamble.</summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.EncodingType.UTF8WithPreamble">
+            <summary>UTF-8 encoding, with 3-byte preamble.</summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.EncodingType.Unicode">
+            <summary>UTF-16 encoding.</summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.EncodingType.ASCII">
+            <summary>ASCII encoding.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ExecutionBlock">
+            <summary>A series of SQL batches to be executed.</summary>
+            <remarks>
+            	<para>An ExecutionBlock contains a series of SQL batches that can be executed
+                against a SQL database. It is essentially a wrapper over a text file with extra
+                information about batch markers (GO statements) and statements that need to be
+                repeated before a batch is run (such as variable declarations).</para>
+            	<para>
+                    An ExecutionBlock contains <see cref="T:RedGate.SQL.Shared.Batch"/> objects which in turn
+                    contain <see cref="T:RedGate.SQL.Shared.Line"/> objects.
+                </para>
+            	<para>
+                    The underlying stream can be accessed from
+                    <see cref="M:RedGate.SQL.Shared.ExecutionBlock.GetFileStream">M</see>
+            	</para>
+            	<para>
+                    ExecutionBlock objects are created by
+                    <see cref="!:RedGate.SQLDataCompare.Engine.SqlProvider.GetMigrationSQL">M</see>
+                    and <see cref="!:RedGate.SQLCompare.Engine.Work.BuildFromDifferences">M</see>.
+                    There should be no need to create an ExecutionBlock manually.
+                </para>
+            	<para>
+                    It is essential to call the <see cref="M:RedGate.SQL.Shared.ExecutionBlock.Dispose"/> method of ExecutionBlock
+                    objects to ensure temporary files are deleted.
+                </para>
+            </remarks>
+        </member>
+        <member name="T:RedGate.SQL.Shared.IBlockWriter">
+            <summary>
+            For internal use by Red Gate Software
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.IBlockWriter.AddBatch(System.String)">
+            <summary>
+            For internal use
+            </summary>
+            <param name="batch"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.IBlockWriter.AddBatchMarker">
+            <summary>
+            For internal use
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.IBlockWriter.BatchWritten">
+            <summary>
+            For internal use
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.#ctor">
+            <summary>Constructor.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.Dispose">
+            <summary>Disposes of the object.</summary>
+            <remarks>
+            The ExecutionBlock makes extensive use of temporary files; it is very important
+            to dispose of the object to ensure these files are deleted.
+            </remarks>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.AddBatch(System.String)">
+            <summary>Adds a batch of SQL code.</summary>
+            <param name="batch">The SQL statement to add.</param>
+            <exclude/>
+            <excludetoc />
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.AddBatch(System.String,System.Boolean)">
+            <summary>Adds a batch of SQL code to be repeated on every execution.</summary>
+            <param name="batch">The SQL statement that the batch contains.</param>
+            <param name="repeating">
+            	<em>True</em> if the batch is to be repeated every time it is executed (for
+            example, for a variable declaration).
+            </param>
+            <exclude/>
+            <excludetoc />
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.AddBatchMarker">
+            <summary>Adds a default BatchMarker.</summary>
+            <exclude/>
+            <excludetoc />
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.AddBatchMarker(System.Boolean)">
+            <summary>Adds a GO statement as a batch marker.</summary>
+            <exclude/>
+            <excludetoc />
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.GetLine(System.Int64)">
+            <summary>Gets a line of SQL.</summary>
+            <returns>A line of SQL.</returns>
+            <param name="index">The index of the line to get.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.GetBatch(System.Int64)">
+            <summary>Gets a batch of SQL.</summary>
+            <returns>A batch of SQL.</returns>
+            <param name="index">The index of the batch to get.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.StopWriting">
+            <summary>Indicates that writing has finished.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.ToString">
+            <summary>Returns the contents of the ExecutionBlock.</summary>
+            <returns>A large SQL statement.</returns>
+            <remarks>
+            If the ExecutionBlock contains a lot of SQL code, this method can cause virtual
+            memory problems; you are recommended to use GetFileStream instead.
+            </remarks>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.GetString">
+            <summary>Returns the contents of the ExecutionBlock.</summary>
+            <returns>A large SQL statement.</returns>
+            <remarks>
+            If the ExecutionBlock contains a lot of SQL code, this method can cause virtual
+            memory problems; you are recommended to use GetFileStream instead.
+            </remarks>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.GetFileStream">
+            <summary>Returns a stream to the underlying SQL text file.</summary>
+            <returns>A stream.</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ExecutionBlock.SaveToFile(System.String,RedGate.SQL.Shared.EncodingType)">
+            <summary>Saves a copy of the ExecutionBlock to a text file with the given encoding.</summary>
+            <param name="fileName">The name of the file.</param>
+            <param name="encoding">The encoding to use.</param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ExecutionBlock.CharCount">
+            <summary>The number of characters in the ExecutionBlock.</summary>
+            <remarks>
+            Note that this is not always the same as the number of bytes because of Unicode
+            issues.
+            </remarks>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ExecutionBlock.BatchWritten">
+            <summary>For internal use only.</summary>
+            <exclude/>
+            <excludetoc />
+        </member>
+        <member name="P:RedGate.SQL.Shared.ExecutionBlock.MaxLineLength">
+            <summary>The maximum length of a line.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ExecutionBlock.BatchCount">
+            <summary>The number of batches.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ExecutionBlock.LineCount">
+            <summary>The number of lines.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.StatusEventArgs">
+            <summary>Arguments used in status events.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.StatusEventArgs.#ctor(System.String)">
+            <summary>Constructor.</summary>
+            <param name="message">The status message.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.StatusEventArgs.#ctor(System.Int32)">
+            <summary>Constructor.</summary>
+            <param name="percentage">The percentage complete.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.StatusEventArgs.#ctor(System.String,System.Int32)">
+            <summary>Constructor.</summary>
+            <param name="message">The status message.</param>
+            <param name="percentage">The percentage complete.</param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.StatusEventArgs.Message">
+            <summary>A progress message.</summary>
+            <remarks>This can be null.</remarks>
+        </member>
+        <member name="P:RedGate.SQL.Shared.StatusEventArgs.Percentage">
+            <summary>The percentage complete.</summary>
+            <remarks>-1 if there is no percentage complete information.</remarks>
+        </member>
+        <member name="T:RedGate.SQL.Shared.OperationCancelledException">
+            <summary>An exception thrown when an operation is cancelled.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.OperationCancelledException.#ctor">
+            <summary>Constructor.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.StatusEventHandler">
+            <summary>The delegate for status events.</summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">A <see cref="T:RedGate.SQL.Shared.StatusEventArgs">StatusEventArgs</see> that contains the event data.</param>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ProgressPercentageTracker">
+            <summary>
+            A helper class for keeping track of the percentage change for StatusEventArgs.
+            The class can also fire off the events.
+            </summary>
+            <remarks>
+            This class allows the you to set the upper and lower limits of the range of a
+            task and then increment through this range. The class will keep track of when the
+            percentage has changed. When the percentage has changed, it is expected that the user
+            will fire off a StatusEvent. The code Increment functions and setting of currentValue
+            has been made thread safe.
+            </remarks>
+            <example>
+            	<code lang="CS">
+            ProgressPercentageTracker tracker = new ProgressPercentageTracker(cancellableObject);
+             
+            tracker.LowerLimit = 0;
+            tracker.UpperLimit = 1000000;
+            tracker.CurrentValue = tracker.LowerLimit;
+             
+            tracker.Message = "Starting Loop";
+             
+            for (int count = tracker.LowerLimit; count &lt; tracker.UpperLimit; count++)
+            {
+                tracker.Increment();
+            }
+            tracker.Message = "Finished Loop";
+                </code>
+            </example>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressPercentageTracker.#ctor">
+            <summary>Default constructor.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressPercentageTracker.#ctor(RedGate.SQL.Shared.ICancellable)">
+            <summary>Cancellable subscriber.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressPercentageTracker.Increment">
+            <summary>Increments the CurrentValue by one.</summary>
+            <returns>If the CurrentPercentage has changed.</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressPercentageTracker.Increment(System.Int32)">
+            <summary>Increments the CurrentValue by the value specified.</summary>
+            <returns>If the CurrentPercentage has changed</returns>
+            <param name="value">The amount by which to increment CurrentValue.</param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressPercentageTracker.LowerLimit">
+            <summary>Gets or sets the lower limit of the range. The default value is 0.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressPercentageTracker.UpperLimit">
+            <summary>Gets or sets the upper limit of the range. The default value is 100.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressPercentageTracker.CurrentValue">
+            <summary>Gets or sets the current value within the specified range.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressPercentageTracker.CurrentPercentage">
+            <summary>Gets the current percentage of the CurrentValue over the specified range.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressPercentageTracker.HasPercentageChanged">
+            <summary>
+            Returns back if the percentage has changed since the last time HasPercentageChanged been called.
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressPercentageTracker.Message">
+            <summary>
+            Access to the status message.
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ProgressExecResult">
+            <summary>
+            Return result from executation
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="F:RedGate.SQL.Shared.ProgressExecResult.UNKNOWN">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.ProgressExecResult.OK">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.ProgressExecResult.CANCELLED">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.ProgressExecResult.THREAD_THREW_EXCEPTION">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ProgressExecState">
+            <summary>
+            Return result from executation
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="F:RedGate.SQL.Shared.ProgressExecState.UNKNOWN">
+            <summary>
+            Unknown state
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.ProgressExecState.INITIALIZING">
+            <summary>
+            The progress bar is initializing iteself.
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.ProgressExecState.RUNNING">
+            <summary>
+            Running the tasks
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.ProgressExecState.CANCELLING">
+            <summary>
+            User attempting to cancel the operation
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.ProgressExecState.CANCELLED">
+            <summary>
+            The operation has been suceessfully cancelled
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.ProgressExecState.ABORTED">
+            <summary>
+            The operation has been aborted because of unexecpect exception
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.ProgressExecState.SUCCESSFULLY_COMPLETED">
+            <summary>
+            All the tasks have been sucessfully compeleted
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.IProgressTaskExecutor">
+            <summary>
+            Defines the interface that is used by code implementations of the "Progress Dialog" box	
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.IProgressTaskExecutor.SetTasks(RedGate.SQL.Shared.ProgressTasks)">
+            <summary>
+            This event handler is called when the user clicks on the OK button
+            </summary>
+            
+        </member>
+        <member name="M:RedGate.SQL.Shared.IProgressTaskExecutor.Run">
+            <summary>
+            Run Tasks
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.IProgressTaskExecutor.CancelOperation">
+            <summary>
+            Cancels the current operation
+            </summary>
+            <returns>True if it has cancelled</returns>
+        </member>
+        <member name="E:RedGate.SQL.Shared.IProgressTaskExecutor.WorkerThreadExceptionEvent">
+            <summary>
+            Event Handler when Worker thread throws an exception
+            </summary>
+        </member>
+        <member name="E:RedGate.SQL.Shared.IProgressTaskExecutor.WorkerThreadFinishedEvent">
+            <summary>
+            This event is handler is called when the worker thread finishes
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.Line">
+            <summary>
+            Represents a line of SQL
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.Line.#ctor(System.String,System.Int64)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="contents"></param>
+            <param name="startIndex"></param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.Line.Contents">
+            <summary>
+            The contents of the line
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.Line.StartIndex">
+            <summary>
+            For internal use
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.MirrorFile">
+            <summary>
+            Summary description for MirrorFile.
+            This is used when saving files. This class Mirrors the file and then
+            only deletes the file once it has finished being written to.
+            
+            The current limitation is that the backup file will not contain 
+            the same security information as the original.... (it will keep the same 
+            attributes and the same summary information)
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.MirrorFile.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.MirrorFile.Open(System.String,System.Text.Encoding)">
+            <summary>
+            Opens the file specified. (it makes a backup if necessary)
+            </summary>
+            <param name="fileName"></param>
+            <param name="encoding">Style of encoding</param>
+            <returns>The stream writer to be used....</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.MirrorFile.Close(System.Boolean)">
+            <summary>
+            Closes down the StreamWriter and tries to free it up
+            if necessary it will destroy the back up file or return it back again....
+            </summary>
+            <param name="undo"></param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.MirrorFile.StreamWriter">
+            <summary>
+            Gets the current StreamWriter. There can only be one for the file....
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.MostRecentlyUsed">
+            <summary>
+            Summary description for MostRecentlyUsed. Could be used for all sorts of things like files etc
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.MostRecentlyUsed.SetMRURegistryKey(System.String)">
+            <summary>
+            Sets the registry key where the GetAvailableServers 
+            </summary>
+            <param name="s"></param>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ProgressHelpEventArgs">
+            <summary>
+            Summary description for ProgressHelpEventArgs.
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressHelpEventArgs.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressHelpEventArgs.Handled">
+            <summary>
+            Getter/Setter to indicate if help been handled. 
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ProgressHelpEvent">
+            <summary>
+            Delegate that describes a worker thread exception
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ProgressTasks">
+            <summary>
+            A Collections of ProgressTasks
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTasks.Add(RedGate.SQL.Shared.ProgressTask)">
+            <summary>
+            Add new Task to the collection
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressTasks.Item(System.Int32)">
+            <summary>
+            Indexer to get out the task.
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.PROGRESS_TASK_ITEM">
+            <summary>
+            Specifies the state of the task. 
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="F:RedGate.SQL.Shared.PROGRESS_TASK_ITEM.UNKNOWN">
+            <summary>
+            The task has been constructed
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.PROGRESS_TASK_ITEM.INITIALIZED">
+            <summary>
+            The Task Item has been initialized
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.PROGRESS_TASK_ITEM.RUNNING">
+            <summary>
+            The Task Item is running
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.PROGRESS_TASK_ITEM.FINISHED_OK">
+            <summary>
+            The Task Item has finished successfully
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.PROGRESS_TASK_ITEM.CANCELLED">
+            <summary>
+            The task Item has been cancelled
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.PROGRESS_TASK_ITEM.ABORTED">
+            <summary>
+            The Task Item has been aborted
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ProgressTask">
+            <summary>
+            This class encapsulates a task. It contains a small ammount of UI information plus
+            a cancellable method ....
+            This class is Cancellable because sub-items are run within this class structure. 
+            All intermethod calls are passed between the submethod and the parent dialog box
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.#ctor">
+            <summary>
+            It's OK to build an empty step. 
+            This step can be 
+            (i) Left just empty.
+            	There is just nothing to run and it will complete imeadiately
+            (ii) Have sub tasks set. These sub-tasks will be executed in order 
+            	(A task with sub tasks, cannot have a task itself.)
+            
+            <code> 
+            Adding a blank step....
+            ProgressTasks tasks = new ProgressTasks();
+            
+            ProgressTask  thisTask = new ProgressTask();
+            thisTask.TaskName = "Complete";
+            tasks.Add(thisTask);
+            
+            Add a task with sub-tasks...
+            ProgressTasks tasks = new ProgressTasks();
+            ProgressTask thisTask = new ProgressTask();
+            
+            thisTask.TaskName = "Register Databases";
+            {
+            	ProgressTasks subTasks = new ProgressTasks();
+            	subTasks.Add(new ProgressTask(new ProgressTaskMethod(m_Database1.Register), m_Database1));
+            	subTasks[0].TaskName = "Register Database 1";
+            	
+            	
+            	subTasks.Add(new ProgressTask(new ProgressTaskMethod(m_Database2.Register), m_Database2));
+            	subTasks[1].TaskName = "Register Database 2";
+            	
+            	thisTask.SetTasks(subTasks);
+            }
+            tasks.Add(thisTask);
+            
+            </code>
+            
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.#ctor(RedGate.SQL.Shared.ProgressTaskMethod,RedGate.SQL.Shared.ICancellable)">
+            <summary>
+            A non empty task must have a valid method to call and an relevant cancellable item 
+            </summary>
+            <param name="method">A method that will be called on the Pool of threads</param>
+            <param name="cancellable">A cancellable object that is called when the user clicks on the cancel button</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.AddSubTaskToEnd(RedGate.SQL.Shared.ProgressTask)">
+            <summary>
+            Add a task to the end of the item....
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.AddSubTaskToStart(RedGate.SQL.Shared.ProgressTask)">
+            <summary>
+            Add a task to the end of the item....
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.SetTasks(RedGate.SQL.Shared.ProgressTasks)">
+            <summary>
+            Sets the tasks that are execpected to be run.
+            Once this has been set it can not be modified. It is not assumed that these tasks
+            will be modified
+            </summary>
+            <param name="tasks">A list of available tasks</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.ProgressTitleBarText">
+            <summary>
+            returns back the current formatted string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.TaskStart(RedGate.SQL.Shared.StatusEventHandler)">
+            <summary>
+            Starts a Task
+            </summary>
+            <param name="statusHandler"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.TaskStop(RedGate.SQL.Shared.PROGRESS_TASK_ITEM)">
+            <summary>
+            Stops the task
+            </summary>
+            <param name="newState"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.FireHelpEvent(RedGate.SQL.Shared.ProgressHelpEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="hlpevent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.GetTimeToComplete(System.Int32)">
+            <summary>
+            returns back the formatted text of the task....
+            </summary>
+            <param name="percentComplete"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.CancelOperation">
+            <summary>
+            implements command to canncel the operation
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ProgressTask.ExecuteSubTasks">
+            <summary>
+            This is the worker code that calls each of the tasks in turn. 
+            Each call is made on the current thread because this code is already running in its own
+            thread
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressTask.Method">
+            <summary>
+            A Get Property to get the mehtod that will be called
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressTask.SubTasksRunConcurrent">
+            <summary>
+            Get/Sets property to say of the subtasks can be run concurrently
+            </summary>
+        </member>
+        <member name="E:RedGate.SQL.Shared.ProgressTask.HelpRequested">
+            <summary>
+            Add/Remove help event handler
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressTask.IsIndeterminate">
+            <summary>
+            By default all tasks are determinate. However if this is specified the user will not be given 
+            any progress.
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressTask.State">
+            <summary>
+            Gets the current state of the task.
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressTask.ProgressText">
+            <summary>
+            Sets/Gets the progress text
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressTask.Weight">
+            <summary>
+            This is the Weight of this task relative to the others within this group of tasks....
+            The default is 100.
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressTask.ICancellable">
+            <summary>
+            Gets the current cancellable item
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressTask.TaskName">
+            <summary>
+            Gets and sets the task name.
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressTask.HasARealTask">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ProgressTask.Status">
+            <summary>
+            Implements the StatusEvent Handler
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ProgressTaskMethod">
+            <summary>
+            Describes the delegate used as ProgressTaskMethod
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SerializationMethod">
+            <summary />
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.DeserializationMethod">
+            <summary />
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ISerializeFormatter">
+            <summary/>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.AddType(System.String,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.SerializeRootObject(System.String,System.String,System.Object,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="fileName"></param>
+            <param name="name"></param>
+            <param name="root"></param>
+            <param name="versionId"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.SerializeRootObject(System.IO.StreamWriter,System.String,System.Object,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="writer"></param>
+            <param name="name"></param>
+            <param name="root"></param>
+            <param name="versionId"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.Write(System.String,RedGate.SQL.Shared.SerializationMethod,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="objectRef"></param>
+            <param name="versionId"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.Write(System.String,System.Type,System.Object,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+            <param name="obj"></param>
+            <param name="versionId"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.Write(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.WriteEncrypted(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.Write(System.String,System.DateTime)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.Write(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.Write(System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.Write(System.String,System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.Write(System.String,System.Collections.IList)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="list"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.Write(System.String,System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="dictionary"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.DeserializeRootObject(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fileName"></param>
+            <param name="name"></param>
+            <param name="typeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadInt64(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadInt64(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="isOptional"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadInt(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadInt(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="isOptional"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadBool(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadBool(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="isOptional"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadDateTime(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadDateTime(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="isOptional"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadString(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadString(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="isOptional"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadObject(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.Read(System.String,RedGate.SQL.Shared.DeserializationMethod)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="objectRef"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadList(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeFormatter.ReadDictionary(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SerialializationException">
+            <summary>Base exception for Serialization Errors.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SerialializationException.#ctor">
+            <summary>Constructor.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SerialializationException.#ctor(System.String,System.Exception)">
+            <summary>Constructor.</summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="inner">
+            The exception that is the cause of the current exception. If the <i>inner</i>
+            parameter is not a null reference, the current exception is raised in a <b>catch</b>
+            block that handles the inner exception.
+            </param>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SerialializationInvalidFileException">
+            <summary>Serialization error caused by incorrectly formatted file.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SerialializationInvalidFileException.#ctor(System.String,System.String,System.Exception)">
+            <summary>Constructor.</summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="fileName">The name of the file that caused the exception.</param>
+            <param name="inner">
+            The exception that is the cause of the current exception. If the <i>inner</i>
+            parameter is not a null reference, the current exception is raised in a <b>catch</b>
+            block that handles the inner exception.
+            </param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationInvalidFileException.FileName">
+            <summary>Gets or sets the name of the file that is loaded or saved.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SerialializationInvalidFileTypeException">
+            <summary>Serialization error caused by an unexpected TypeName in the file.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SerialializationInvalidFileTypeException.#ctor(System.String,System.String,System.String)">
+            <summary>Constructor.</summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="fileName">The name of the file that caused the exception.</param>
+            <param name="typename">The TypeName that caused the exception.</param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationInvalidFileTypeException.TypeName">
+            <summary>Gets or sets the TypeName that caused the exception.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SerialializationParameterConversionException">
+            <summary>
+            Serialization error caused by an error raised when converting a parameter. This
+            could be because the serialized file has been edited manually.
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SerialializationParameterConversionException.#ctor(System.String,System.String,System.String,System.Exception)">
+            <summary>Constructor.</summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+            <param name="fileName">The name of the file that caused the exception.</param>
+            <param name="inner">
+            The exception that is the cause of the current exception. If the <i>inner</i>
+            parameter is not a null reference, the current exception is raised in a <b>catch</b>
+            block that handles the inner exception.
+            </param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationParameterConversionException.Parameter">
+            <summary>Gets or sets the parameter that caused the exception.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationParameterConversionException.FileName">
+            <summary>Gets or sets the name of the file that caused the exception.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SerialializationNotSupportedException">
+            <summary>The class does not support the IRedGateSerializable interface.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SerialializationNotSupportedException.#ctor(System.String,System.String,System.String)">
+            <summary>Constructor.</summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+            <param name="typeName">The TypeName that caused the exception.</param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationNotSupportedException.Parameter">
+            <summary>Gets or sets the parameter that caused the exception.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationNotSupportedException.TypeName">
+            <summary>Gets or sets TypeName that caused the exception.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SerialializationInvalidTypeException">
+            <summary>The type is not supported by the IRedGateSerializable interface.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SerialializationInvalidTypeException.#ctor(System.String,System.String,System.String)">
+            <summary>Constructor.</summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+            <param name="typeName">The TypeName that caused the exception.</param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationInvalidTypeException.Parameter">
+            <summary>Gets or sets the parameter that caused the exception.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationInvalidTypeException.TypeName">
+            <summary>Gets or sets TypeName that caused the exception.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SerialializationInvalidVersionException">
+            <summary>
+            Serialization error caused by attempting to deserialize a file for which the
+            serialization version is later than your SQL Toolkit version.
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SerialializationInvalidVersionException.#ctor(System.String,System.String,System.String,System.String,System.Exception)">
+            <summary>Constructor.</summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+            <param name="typeName">The TypeName that caused the exception.</param>
+            <param name="version">The version that caused the exception.</param>
+            <param name="inner">
+            The exception that is the cause of the current exception. If the <i>inner</i>
+            parameter is not a null reference, the current exception is raised in a <b>catch</b>
+            block that handles the inner exception.
+            </param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SerialializationInvalidVersionException.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>Constructor.</summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+            <param name="typeName">The TypeName that caused the exception.</param>
+            <param name="version">The version that caused the exception.</param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationInvalidVersionException.Version">
+            <summary>Gets or sets the version that caused the exception.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationInvalidVersionException.Parameter">
+            <summary>Gets or sets the parameter that caused the exception.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationInvalidVersionException.TypeName">
+            <summary>Gets or sets the TypeName that caused the exception.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SerialializationParameterMissingException">
+            <summary>Serialization error caused by a missing parameter.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SerialializationParameterMissingException.#ctor(System.String,System.String,System.String)">
+            <summary>Constructor.</summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="fileName">The name of the file that caused the exception.</param>
+            <param name="parameter">The name of the parameter that caused the exception.</param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationParameterMissingException.Parameter">
+            <summary>Gets or sets the parameter that caused the exception.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationParameterMissingException.FileName">
+            <summary>Gets or sets the name of the file that caused the exception.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SerialializationParameterEmptyException">
+            <summary>Serialization error caused by an empty parameter.</summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SerialializationParameterEmptyException.#ctor(System.String,System.String,System.String)">
+            <summary>Constructor.</summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="fileName">The name of the file that caused the exception.</param>
+            <param name="parameter">The name of the parameter that caused the exception.</param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationParameterEmptyException.Parameter">
+            <summary>Gets or sets the parameter that caused the exception.</summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SerialializationParameterEmptyException.FileName">
+            <summary>Gets or sets the name of the file that caused the exception.</summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ISerializeTypeBinder">
+            <summary>
+             This is the Interface that defines TypeBinder. 
+             It is used to link Types to names. Each type/name pair is added into the repository
+             This then allows quick look up between type and name string. 
+             This is used 
+            	in serialization to convert from Types into names
+            	in deserialization to convert from name into Types
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeTypeBinder.AddType(System.String,System.Type)">
+            <summary>
+            Adds a type name and type to the dictionary
+            </summary>
+            <param name="name">The name of the type that is used in the seializeFormatter</param>
+            <param name="type">The .NET type that that can be serialized</param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeTypeBinder.ResolveName(System.String)">
+            <summary>
+            This methods takes a name and returns the relevant type
+            </summary>
+            <param name="name"></param>
+            <returns>The type for the name</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ISerializeTypeBinder.ResolveType(System.Type)">
+            <summary>
+            This methods takes a Type and returns the name
+            </summary>
+            <param name="type"></param>
+            <returns>The name for the type</returns>
+        </member>
+        <member name="T:RedGate.SQL.Shared.TypeBinder">
+            <summary>
+            This is the standard implementation of the TypeBinder
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ResolutionEventHandlerArgs">
+            <summary>
+            The event handler args can be handled through events. This is the paramey
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ResolutionEventHandlerArgs.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ResolutionEventHandlerArgs.#ctor(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ResolutionEventHandlerArgs.#ctor(System.String,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ResolutionEventHandlerArgs.HasBeenHandled">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ResolutionEventHandlerArgs.Type">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ResolutionEventHandlerArgs.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ResolutionEventHandler">
+            <summary>
+            Delegate that describes a Resolution Event Handler
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.UI.SimpleProgressTaskExecutor">
+            <summary>
+            Summary description for SimpleProgressTaskExecutor. Similar to the ProgressDialogBox but for Console
+            Apps.
+            This code is designed to only be run on it's own. (ie DONOT Run another SimpleProgressTaskExecutor
+            in another thread....
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.SetTasks(RedGate.SQL.Shared.ProgressTasks)">
+            <summary>
+            
+            </summary>
+            <param name="tasks"></param>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.Run">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.Block">
+            <summary>
+            Wait until the call is finished!
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.CancelOperation">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.Dispose(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.ResetInterface(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="nStyle"></param>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.TaskUpdateProgressBarPrivate(System.Object,RedGate.SQL.Shared.StatusEventArgs)">
+            <summary>
+            This code is called on the main user thread and tells the caller what 
+            the new percentage and message string is
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.TaskUpdateTaskName(System.Object,RedGate.SQL.Shared.StatusEventArgs)">
+            <summary>
+            This code is called on the main user thread and tells the caller what the current task
+            index and task name is!
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.ChangedTaskId(System.Int32)">
+            <summary>
+            This code is run on the Task Thread!
+            </summary>
+            <param name="nTaskId"></param>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.DoTasks">
+            <summary>
+            This is the main loop that does all the work. It is called entirely on a separate thread
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.OutputTaskName(System.String)">
+            <summary>
+            Output the Task Name. The defaut code does nothing
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.OnWorkerThreadFinished(System.Object,RedGate.SQL.Shared.WorkerThreadFinishedEventArgs)">
+            <summary>
+            Called when WorkerThread has finished
+            </summary>
+            <param name="source"></param>
+            <param name="eventArgs"></param>		
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.OnWorkerThreadException(System.Object,RedGate.SQL.Shared.WorkerThreadExceptionEventArgs)">
+            <summary>
+            Called when Worker thread has thrown an exception.
+            </summary>
+            <param name="source"></param>
+            <param name="eventArgs"></param>
+        </member>
+        <member name="M:RedGate.SQL.UI.SimpleProgressTaskExecutor.HaveAllTasksCompleted">
+            <summary>
+            Returns if the all tasks have been completed...
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:RedGate.SQL.UI.SimpleProgressTaskExecutor.CurrentText">
+            <summary>
+            This is the CurrentText that would have been outputted by the current task..
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.UI.SimpleProgressTaskExecutor.CurrentPercentage">
+            <summary>
+            This is the CurrentPercentage Completion
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.UI.SimpleProgressTaskExecutor.CurrentTaskName">
+            <summary>
+            This is the current task name
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.UI.SimpleProgressTaskExecutor.CurrentTaskId">
+            <summary>
+            The current Task Id
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.UI.SimpleProgressTaskExecutor.BlockOnRun">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:RedGate.SQL.UI.SimpleProgressTaskExecutor.WorkerThreadExceptionEvent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:RedGate.SQL.UI.SimpleProgressTaskExecutor.WorkerThreadFinishedEvent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.UI.SimpleProgressTaskExecutor.StateOfTasks">
+            <summary>
+            Gets the current state of the task progressing or if it's been cancelled etc....
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SQLDatabaseStatus">
+            <summary>
+            Definition of the state of a SQL Database
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLDatabaseStatus.None">
+            <summary>
+            Nothing
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLDatabaseStatus.OffLine">
+            <summary>
+            SQL Database is offline
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLDatabaseStatus.Suspect">
+            <summary>
+            SQL Database is suspect
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLDatabaseStatus.NotRecoveredYet">
+            <summary>
+            SQL Database has not been recovered yet
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLDatabaseStatus.InRecovery">
+            <summary>
+            SQL Database in recovery
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLDatabaseStatus.CrashedWhileLoading">
+            <summary>
+            SQL Database Crashed while loading....
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLDatabaseStatus.SystemOwned">
+            <summary>
+            System Database owned by SQL, like master
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLDatabaseStatus.UserOwned">
+            <summary>
+            user Database owned by SQL, like NorthWind
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SQLDatabase">
+            <summary>
+            A simple encapsulation of a SQL Database 
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLDatabase.#ctor(System.String,System.Int32,System.Int32,System.Byte[],RedGate.SQL.Shared.SQLServerVersion)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="databaseName"></param>
+            <param name="compatabilityMode"></param>
+            <param name="sid"></param>
+            <param name="version"></param>
+            <param name="sqlStatusValue"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLDatabase.ToString">
+            <summary>
+            Gets the ToString Text
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLDatabase.DatabaseName">
+            <summary>
+            Getter of the name of the database
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLDatabase.CompatabilityMode">
+            <summary>
+            The compatability of database
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLDatabase.Status">
+            <summary>
+            Current Status of the database
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SQLDatabases">
+            <summary>
+            A collection of databases
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLDatabases.GetDatabases">
+            <summary>
+            Gets a list of Databases
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLDatabases.CopyTo(System.Array,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="array"></param>
+            <param name="index"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLDatabases.GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLDatabases.Item(System.String)">
+            <summary>
+            looks up a database given a name...
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLDatabases.IsSynchronized">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLDatabases.Count">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLDatabases.SyncRoot">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.ServerVersion">
+            <summary>
+            Basic SqlServer version encapsulation. Do not modify this code as it's compatable with 
+            .NET 2
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ServerVersion.#ctor(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="major"></param>
+            <param name="minor"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ServerVersion.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="major"></param>
+            <param name="minor"></param>
+            <param name="buildNumber"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.ServerVersion.ToString">
+            <summary>
+            ToString
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ServerVersion.BuildNumber">
+            <summary>
+            Build Number
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ServerVersion.Major">
+            <summary>
+            Major
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.ServerVersion.Minor">
+            <summary>
+            Minor
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SQLServerVersion">
+            <summary>
+            RedGate encapsualtion of SQL Server instance...
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServerVersion.#ctor(RedGate.SQL.Shared.SQLServerVersion)">
+            <summary>
+            
+            </summary>
+            <param name="src"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServerVersion.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="major"></param>
+            <param name="minor"></param>
+            <param name="buildNumber"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServerVersion.CreateSQLServerVersion(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="versionString"></param>
+            <returns></returns>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLServerVersion.DecriptionGuid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLServerVersion.CanDecrypt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SQLServerDatabaseVersion">
+            <summary>
+            RedGate encapsulation of SQLVersion and compatablity mode. 
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServerDatabaseVersion.#ctor(RedGate.SQL.Shared.SQLServerVersion)">
+            <summary>
+            
+            </summary>
+            <param name="src"></param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLServerDatabaseVersion.CompatabilityLevel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SQLServer">
+            <summary>
+            Summary description for SqlServer.
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.#ctor(System.Boolean,System.String,System.String,System.String)">
+            <summary>
+            Main constructor
+            </summary>
+            <param name="integratedSecurity"></param>
+            <param name="server"></param>
+            <param name="username"></param>
+            <param name="password"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.DoubleQuotes(System.String)">
+            <summary>
+            For connection strings if both single- and double-quotes are used in
+            a value each occurrence of a quote mark must be doubled to escape it
+            in the value.  This method takes the source string and doubles any
+            quotemarks encountered.
+            </summary>
+            <param name="source">Source string.</param>
+            <returns>String with any quote marks (either single or double) doubled.</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.QuoteThis(System.String)">
+            <summary>
+            Deals with the fact that values in connection strings can contain single- and
+            double-quotes, and also semi-colons.  Will return an appropriately quoted string
+            that can be used without problems as part of a connection string.
+            </summary>
+            <param name="source">Source string.</param>
+            <returns>Appropriately quoted string (note that the source string may not need to be quoted at all in which case the original source string is returned).</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.GetConnectionString(System.String,System.String,System.String,System.String)">
+            <summary>
+            Gets an appropriate SQL Server connection string that can be used, for example,
+            with ADO.NET.
+            </summary>
+            <remarks>
+            To use integrated security (recommended) you should specify a null username.
+            </remarks>
+            <returns>SQL Server connection string.</returns>
+            <param name="server">The name of the SQL Server.</param>
+            <param name="database">
+            The name of the database, or <em>null</em> if you do not want to use a default
+            database.
+            </param>
+            <param name="username">
+            The SQL Server user name, or <em>null</em> if you are using integrated
+            security.
+            </param>
+            <param name="password">The password corresponding to SQL Server user name.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.GetConnectionString(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Gets an appropriate SQL Server connection string that can be used, for example,
+            with ADO.NET.
+            </summary>
+            <remarks>
+            To use integrated security (recommended), specify a <em>null</em> user
+            name.
+            </remarks>
+            <returns>SQL Server connection string.</returns>
+            <param name="server">The name of the SQL Server</param>
+            <param name="database">
+            The name of the database, or <em>null</em> if you do not want to use a default
+            database.
+            </param>
+            <param name="username">
+            The SQL Server user name, or <em>null</em> if you are using integrated
+            security.
+            </param>
+            <param name="password">The password corresponding to SQL Server user name.</param>
+            <param name="appName">The application name for a customized application.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.GetVersion">
+            <summary>
+            Gets the version of the specified SQL Server.
+            </summary>
+            <remarks>
+            If you are using integrated security, specify a <em>null</em> user name and
+            password. You must specify at least a user name to use SQL Server
+            authentication.
+            </remarks>
+            <returns>SQL Server version.</returns>
+            <exception cref="T:System.Data.SqlClient.SqlException">If an error occurs whilst trying to determine the SQL Server version.</exception>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.GetServerDatabaseVersion(System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            Gets the SQL Server database version. Note that this method assumes that the
+            SqlConnection is already open and will be disposed of by the callee.
+            </summary>
+            <param name="connection">Already made up connection information</param>
+            <param name="databaseName">Can be null. it only then gets the basic information</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.GetDatabases">
+            <summary>Returns a list of databases that exist on the SQL Server.</summary>
+            <returns>An array of database names.</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.GetDatabases(System.Boolean)">
+            <summary>Gets a list of databases given SQL Server information.</summary>
+            <returns>An array of database names.</returns>
+            <param name="forceRefresh"><em>True</em> to force a reload of the database names.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.GetDatabasesEx(System.Boolean)">
+            <summary>Gets a list of databases given SQL Server information.</summary>
+            <returns>An array of database names.</returns>
+            <param name="forceRefresh"><em>True</em> to force a reload of the database names.</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.GetDatabases(System.String,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>Gets the list of available databases.</summary>
+            <param name="server">The name of the SQL Server.</param>
+            <param name="username">
+            The SQL Server user name, or <em>null</em> if you are using integrated
+            security.
+            </param>
+            <param name="password">The password corresponding to SQL Server user name.</param>
+            <param name="forceRefresh"><em>True</em> to force a reload of the database names.</param>
+            <param name="integratedSecurity" />
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.GetDatabasesEx(System.String,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>Gets a list of the available databases.</summary>
+            <param name="server">The name of the SQL Server.</param>
+            <param name="username">
+            The SQL Server user name, or <em>null</em> if you are using integrated
+            security.
+            </param>
+            <param name="password">The password corresponding to SQL Server user name.</param>
+            <param name="forceRefresh"><em>True</em> to force a reload of the database names.</param>
+            <param name="integratedSecurity"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.Dispose">
+            <summary>
+            Dispose
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServer.Finalize">
+            <summary>
+            Finalizer
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLServer.Server">
+            <summary>
+            ServerName
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLServer.Username">
+            <summary>
+            Username
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLServer.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLServer.IntegratedSecurity">
+            <summary>
+            Uses Integrated Security
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SQLServer.SQLVersion">
+            <summary>
+            Enumeration of SQL Server versions.
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLServer.SQLVersion.Unknown">
+            <summary>
+            SQL Server version could not be determined.
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLServer.SQLVersion.SqlServer7">
+            <summary>
+            SQL Server 7.
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLServer.SQLVersion.SqlServer2000">
+            <summary>
+            SQL Server 2000.
+            </summary>
+        </member>
+        <member name="F:RedGate.SQL.Shared.SQLServer.SQLVersion.SqlServer2005">
+            <summary>
+            SQL Server 2005 
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.SQLServerInstances">
+            <summary>
+            Get a list of SQL server Instances from the network.	
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServerInstances.Init">
+            <summary>
+            Call this function to initiate the creation of the background thread to go and find
+            the SQL instances.....
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.SQLServerInstances.GetAvailable(System.Boolean)">
+            <summary>
+            Gets a list of available SQL Instances
+            </summary>
+            <param name="forceRefresh"></param>
+            <returns></returns>
+        </member>
+        <member name="P:RedGate.SQL.Shared.SQLServerInstances.MicrosoftManagementStudioFolder">
+            <summary>
+            Get the folder for Microsoft Management Studio.
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.NetServerApi32">
+            <summary>
+            Class to locate servers on a local network/domain
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.NetServerApi32.SV_101_TYPES">
+            <summary />
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.NetServerApi32.SERVER_INFO_101">
+            <summary />
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.NetServerApi32.PLATFORM_ID">
+            <summary />
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.TempFiles">
+            <summary>
+            A collection of Red Gate Temporary files. The temp files are deleted when this object is
+            Disposed. This class is thread safe.
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFiles.#ctor">
+            <summary>
+            Create a container for the temporary files with no pre or post fix text to the 
+            temporary file names
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFiles.#ctor(System.String)">
+            <summary>
+            Create a container for the temporary files with a pre fix to the the file name
+            </summary>
+            <param name="preFix">temporary File Name prefix</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFiles.#ctor(System.String,System.String)">
+            <summary>
+            Create a container for the temporary files with a pre and post fix to the the file name
+            </summary>
+            <param name="preFix">temporary File Name prefix</param>
+            <param name="postFix">temporary File Name post fix (excluding a .)</param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFiles.CreateNewTempFile(System.String)">
+            <summary>
+            Create a new temporary file
+            </summary>
+            <param name="postFix">the post fix of the file (no . required)</param>
+            <returns>The name of the temporary file 8.3</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFiles.CreateNewTempFile">
+            <summary>
+            Creates a new Temporary File with the predefined postfix (returns 8.3 file name)
+            </summary>
+            <returns>The name of the temporary file 8.3</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFiles.AddNewTempFile(System.String)">
+            <summary>
+            Adds a new file temporary file to the list of files. This file is not created. 
+            It will be by default automatically disposed of.
+            </summary>
+            <param name="postFix">Overides the default postfix</param>
+            <returns>The full name of the temporary file</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFiles.AddNewTempFile">
+            <summary>
+            Adds a new file temporary file with the default post fix to the list of files. This file is not created. 
+            It will be by default automatically disposed of.
+            </summary>
+            <returns>The full name of the temporary file</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFiles.DisposeFile(System.String)">
+            <summary>
+            Dispose of a specific temporary file early created. Nb. must use the file name specified 
+            when added into the collections....
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFiles.Dispose">
+            <summary>
+            Dispose
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.TempFile">
+            <summary>
+            Summary description for TempFile.
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.#cctor">
+            <summary>
+            Ensures that the "Red Gate" folder exists off the temp directory
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.#ctor(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="preFix"></param>
+            <param name="postFix"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="preFix"></param>
+            <param name="postFix"></param>
+            <param name="deleteFileOnDispose"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.#ctor(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="preFix"></param>
+            <param name="postFix"></param>
+            <param name="deleteFileOnDispose"></param>
+            <param name="useLongFileName"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.Finalize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.GetTempPath">
+            <summary>
+            Returns the path to the temp directory which Red Gate tools should use.
+            This API is not publically supported.
+            </summary>
+            <returns>The path to the temp directory</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.AutoGenerateFileName(System.String,System.String)">
+            <summary>
+            AutoGenerate a temporary filename
+            </summary>
+            <param name="preFix">The prefix that can be included....</param>
+            <param name="postFix">PostFix Not including a .</param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.AutoGenerateShortFileName(System.String,System.String)">
+            <summary>
+            Autogenerate a temporary filename. Create the file and work out it's 8.3 file name
+            </summary>
+            <param name="preFix"></param>
+            <param name="postFix"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.Delete">
+            <summary>
+            Removes the file. If the file is successfully removed then FileName is no longer valid.
+            </summary>
+            <returns>success or failure</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.Unlink">
+            <summary>
+            Remove the file
+            </summary>
+            <returns>success or failure</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.Dispose(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.TempFile.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.TempFile.DeleteFileOnDispose">
+            <summary>
+            Allows the consumer to overide if this file will be removed when dispose is called....
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.TempFile.FileName">
+            <summary>
+            Gets the file name of the temporary file
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.Utils">
+            <summary>
+            An obsolete set of utilities class containing methods used in both SQL Compare and SQL Data Compare
+            </summary>
+            
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.GetDatabases(System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Returns a list of databases present on the server
+            </summary>
+            <param name="serverName">The name of the server</param>
+            <param name="integratedSecurity">True to use integrated security</param>
+            <param name="userName">The user name to connect as</param>
+            <param name="password">The password to connect as</param>
+            <returns>An array of database names</returns>
+            
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.GetDatabases(System.String,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Gets a list of databases given server information
+            </summary>
+            <param name="serverName">The name of the server</param>
+            <param name="integratedSecurity">True to use integrated security, false to use SQL authentication</param>
+            <param name="userName">The name of the user to connect as</param>
+            <param name="password">The password of the user</param>
+            <param name="forceRefresh">True to force a reload of the database names</param>
+            <returns>An array of database names</returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.SetMRURegistryKey(System.String)">
+            <summary>
+            Sets the registry key where the GetAvailableServers 
+            </summary>
+            <param name="s"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.AddItemToMRUList(System.String)">
+            <summary>
+            AddItem to the Most Recently used List...
+            </summary>
+            <param name="s"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.GetAvailableServers(System.Boolean)">
+            <summary>
+            Returns a list of available servers
+            </summary>
+            <remarks>
+            Note that this list of servers may not be complete. 
+            This method uses both a TCP and UDP probe to find servers on the network.
+            </remarks>
+            <param name="forceRefresh">True to force a reload of the server names</param>
+            
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.GetConnectionString(System.String,System.String,System.String,System.String)">
+            <summary>
+            Gets an appropriate SQL Server connection string that can be used, for example,
+            with ADO.NET.
+            </summary>
+            <remarks>
+            To use integrated security (recommended) you should specify a null username.
+            </remarks>
+            <param name="server">Server name.</param>
+            <param name="database">Database name (<code>null</code> if you do not want to use a default database).</param>
+            <param name="username">SQL Server username (<code>null</code> if using integrated security).</param>
+            <param name="password">Password corresponding to SQL Server username.</param>
+            <returns>SQL Server connection string.</returns>
+            
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.GetSqlServerVersion(System.String,System.String,System.String)">
+            <summary>
+            Gets the version of the specified SQL Server.
+            </summary>
+            <remarks>
+            If using integrated security specify a <code>null</code> username
+            and password.  You must specify at least a username to use SQL Server
+            authentication.
+            </remarks>
+            <param name="server">Server name.</param>
+            <param name="username">Username or <code>null</code> to use integrated security (recommended).</param>
+            <param name="password">Password for SQL Server user if required, <code>null</code> if not.</param>
+            <returns>SQL Server version.</returns>
+            <exception cref="T:System.Data.SqlClient.SqlException">If an error occurs whilst trying to determine the SQL Server version.</exception>
+            
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.ExecuteBlock(RedGate.SQL.Shared.ExecutionBlock,System.String,System.String)">
+            <summary>
+            Runs a set of SQL contained in an ExecutionBlock using integrated security
+            </summary>
+            <param name="block">The block of SQL to run</param>
+            <param name="server">The server to run it on</param>
+            <param name="database">The database to run it on</param>
+            <remarks>
+            Feedback is provided via the Status event handler. See <see cref="M:RedGate.SQL.Shared.Utils.ExecuteBlock(RedGate.SQL.Shared.ExecutionBlock,System.String,System.String,System.Boolean,System.String,System.String)"/> for more details.
+            </remarks>
+            
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.GetLast500Errors">
+            <summary>
+            Returns the last 500 errors from the <see cref="M:RedGate.SQL.Shared.Utils.ExecuteBlock(RedGate.SQL.Shared.ExecutionBlock,System.String,System.String,System.Boolean,System.String,System.String)"/> method
+            </summary>
+            <returns>
+            The last 500 errors
+            </returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.ExecuteBlock(RedGate.SQL.Shared.ExecutionBlock,System.String,System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Runs a set of SQL contained in an ExecutionBlock
+            </summary>
+            <param name="block">The block of SQL to run</param>
+            <param name="server">The server to run it on</param>
+            <param name="database">The database to run it on</param>
+            <param name="integratedSecurity">True to use integrated security</param>
+            <param name="password">The password to connect to the database with</param>
+            <param name="userName">The user name to connect to the database with</param>
+            <remarks>
+            Feedback is provided via the Status event handler.
+            <para>See <see cref="M:RedGate.SQLDataCompare.Engine.SqlProvider.GetMigrationSQL"/> and <see cref="M:RedGate.SQLCompare.Engine.BuildFromDifferences"/> for code samples.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.CancelOperation">
+            <summary>
+            Cancels the current operation
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.Utils.OnStatus(RedGate.SQL.Shared.StatusEventArgs)">
+            <summary>
+            Fires the Status event
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.Utils.LastCommandText">
+            <summary>
+            The last SQL command to be executed from the <see cref="M:RedGate.SQL.Shared.Utils.ExecuteBlock(RedGate.SQL.Shared.ExecutionBlock,System.String,System.String,System.Boolean,System.String,System.String)"/> method
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.Utils.Status">
+            <summary>
+            The event handler for status events
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.WorkerThreadExceptionEventArgs">
+            <summary>
+            Event args that are thrown when worker thread throws an exception	
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.WorkerThreadExceptionEventArgs.#ctor(RedGate.SQL.Shared.ProgressTask,System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="task"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.WorkerThreadExceptionEventArgs.LogEvent">
+            <summary>
+            Log this exception..
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.WorkerThreadExceptionEventArgs.WorkerException">
+            <summary>
+            Worker Exception class
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.WorkerThreadExceptionEventArgs.HasBeenHandled">
+            <summary>
+            Getter/Setter to indicate if this exception has been handled. (if it is handled then it is 
+            not displayed within the ProgressDialog Box UI.
+            </summary>
+        </member>
+        <member name="P:RedGate.SQL.Shared.WorkerThreadExceptionEventArgs.Task">
+            <summary>
+            Gets the current task that caused the exception
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.WorkerThreadExceptionEvent">
+            <summary>
+            Delegate that describes a worker thread exception
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.WorkerThreadFinishedEventArgs">
+            <summary>
+            These are the event args to indicate how the task has completed....
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.WorkerThreadFinishedEventArgs.#ctor(RedGate.SQL.Shared.ProgressExecState)">
+            <summary>
+            Event args generated when all the tasks have finished....
+            </summary>
+            <param name="taskState"></param>
+        </member>
+        <member name="P:RedGate.SQL.Shared.WorkerThreadFinishedEventArgs.TasksState">
+            <summary>
+            Gets the state of the task
+            </summary>
+        </member>
+        <member name="T:RedGate.SQL.Shared.WorkerThreadFinishedEvent">
+            <summary>
+            Delgate for WorkerThreadFinishedEvent
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="T:RedGate.SQL.Shared.XMLSerializeFormatter">
+            <summary>
+            Summary description for XMLSerializeFormatter.
+            </summary>
+            <exclude/>
+            <excludetoc/>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.#ctor(RedGate.SQL.Shared.ISerializeTypeBinder)">
+            <summary>
+            
+            </summary>
+            <param name="binder"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.AddType(System.String,System.Type)">
+            <summary>
+            Adds a type....
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.SerializeRootObject(System.String,System.String,System.Object,System.Int32)">
+            <summary>
+            Serialize the root of the object...
+            </summary>
+            <param name="fileName"></param>
+            <param name="name"></param>
+            <param name="root"></param>
+            <param name="versionId"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.SerializeRootObject(System.IO.StreamWriter,System.String,System.Object,System.Int32)">
+            <summary>
+            Serializes data via a stream writer... Gives more flexibility to the existing mechanism
+            </summary>
+            <param name="writer"></param>
+            <param name="name"></param>
+            <param name="root"></param>
+            <param name="versionId"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.Write(System.String,RedGate.SQL.Shared.SerializationMethod,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="objectRef"></param>
+            <param name="versionId"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.Write(System.String,System.Type,System.Object,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+            <param name="obj"></param>
+            <param name="versionId"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.WriteEncrypted(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.Write(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.Write(System.String,System.DateTime)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.Write(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.Write(System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.Write(System.String,System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.Write(System.String,System.Collections.IList)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="list"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.Write(System.String,System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="dictionary"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.DeserializeRootObject(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fileName"></param>
+            <param name="name"></param>
+            <param name="typeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadInt64(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadInt64(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="isOptional"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadInt(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadInt(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="isOptional"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadBool(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadBool(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="isOptional"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadDateTime(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadDateTime(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="isOptional"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadString(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadString(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="isOptional"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadObject(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.Read(System.String,RedGate.SQL.Shared.DeserializationMethod)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="objectRef"></param>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadList(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RedGate.SQL.Shared.XMLSerializeFormatter.ReadDictionary(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="E:RedGate.SQL.Shared.XMLSerializeFormatter.Resolver">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

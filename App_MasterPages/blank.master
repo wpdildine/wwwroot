@@ -1,0 +1,24 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="blank.master.cs" Inherits="Master_Pages_blank" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Register Assembly="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+    Namespace="System.Web.UI" TagPrefix="asp" %>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <link href="../App_Css/epicCMS.css" rel="stylesheet" type="text/css" />
+     <script type="text/javascript" src="../App_Js/epicCMS.js"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+                <asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
+    <asp:contentplaceholder ID="NavContent" runat="Server">
+</asp:contentplaceholder>
+        <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+        </asp:contentplaceholder>
+    </div>
+    </form>
+</body>
+</html>

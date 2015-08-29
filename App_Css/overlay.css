@@ -1,0 +1,250 @@
+﻿.e_overlay {
+
+        position: absolute;
+        width: 1152px;
+        background-color: rgba(255,255,255, .6);
+        height: 3500px;
+        z-index: 100;
+        display:none;
+
+    }
+
+    .e_overlay_content {
+
+        
+        width: 877px;
+        float: left;
+        top: 100px;
+        left: 110px;
+        z-index: 101;
+        position: absolute;
+        background: #2e2e2e;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        padding: 30px;
+        color: #fff;
+        padding-bottom: 0;
+        display: none;
+
+    }
+
+
+    .e_overlay_content h1 {
+
+        float: left;
+        font-size: 32px;
+        font-weight: bold;
+        margin-top:2px;
+        
+
+    }
+        .e_overlay_content h1 span { color: #bacaf2; }
+
+    .e_overlay_content h2 {
+
+        font-size: 14px;
+        font-weight: bold;
+        float: right;
+        line-height: 42px;
+        text-transform: uppercase;
+        margin-right: 30px;
+
+    }
+
+     .e_overlay_content ol { clear: both; float: left; width: 877px; margin-top: 30px}
+     .e_overlay_content ol.ol_gray li,  .e_overlay_content ol.ol_blue li
+        {
+
+            min-height: 48px;
+            padding-left: 58px;
+            padding-top: 9px;
+            color: inherit;
+            position: relative;
+            line-height: 24px;
+            float: left; 
+            width: 819px;
+            margin-bottom: 30px
+            
+        }
+        .e_overlay_content ol.ol_gray li { background: url(/App_Images/ico_bullet_lg_gray.png) left top no-repeat; }
+        .e_overlay_content ol.ol_blue li { background: url(/App_Images/ico_bullet_lg_blue.png) left top no-repeat; }
+        .e_overlay_content ol.ol_gray span.num,  .e_overlay_content ol.ol_blue span.num { 
+
+            position: absolute;
+            top: 12px;
+            color: #fff;
+            left: 15px;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, .4);
+        }
+
+        .e_overlay_content ol.ol_gray a,  .e_overlay_content ol.ol_blue a {
+
+            color: inherit;
+
+        }
+
+        .e_overlay_content li .row { float: left; width: 100%; line-height: 24px; margin-top: 5px;}
+        .e_overlay_content li .row input { float: left; width: 30px; text-align: left; line-height: 24px;}
+        .e_overlay_content li .row label { float: left; width: 750px; line-height: 24px;}
+        .e_overlay_content li .row em { display: none; width: 730px; clear: both; font-style: normal; float: left; color: #e14545; line-height: 24px;}
+            .e_overlay_content li .row em.correct { color: #e1bb45}
+
+
+            
+    .e_overlay_content p.intro {
+
+        clear: both;
+        margin-top: 0px;
+        float: left;
+        width: 100%;
+        line-height: 24px;
+
+    }
+
+    .e_overlay_content p.last {
+
+        clear: both;
+        margin-top: -25px;
+        margin-bottom: 60px;
+        float: left;
+        width: 100%;
+        line-height: 24px;
+
+    }
+    .e_overlay_content ol.ol_blue .note,.e_overlay_content ol.ol_gray .note { margin: 2px 0px; font-size: 14px; line-height: 20px}
+
+    /* Specialty Overlay Buttons */
+    .e_overlay_content .btn_fat_red,.e_overlay_content .btn_thin_red,.e_overlay_content .btn_thin_blue,.e_overlay_content .btn_fat_blue,
+       .e_overlay_content .btn_fat_red span,.e_overlay_content .btn_thin_red span,.e_overlay_content .btn_thin_blue span,.e_overlay_content .btn_fat_blue span { float: left; font-size: 16px;}
+                
+       .e_overlay_content .btn_fat_red {
+            background: url(/App_Images/bg_btn_left_red1.png) top left no-repeat; margin-bottom: 30px;
+        }
+       .e_overlay_content .btn_thin_red {
+            background: url(/App_Images/bg_btn_left_red2.png) top left no-repeat; margin-bottom: 30px;
+        }
+       .e_overlay_content .btn_fat_blue {
+            background: url(/App_Images/bg_btn_left_blue1.png) top left no-repeat; margin-bottom: 30px;
+        }
+       .e_overlay_content .btn_thin_blue {
+            background: url(/App_Images/bg_btn_left_blue2.png) top left no-repeat; margin-bottom: 30px;
+        }
+       .e_overlay_content .btn_fat_red span {
+            background: url(/App_Images/bg_btn_right_red1.png) top right no-repeat; margin-bottom: 30px;
+        }
+       .e_overlay_content .btn_thin_red span {
+            background: url(/App_Images/bg_btn_right_red2.png) top right no-repeat; margin-bottom: 30px;
+        }
+       .e_overlay_content .btn_fat_blue span {
+            background: url(/App_Images/bg_btn_right_blue1.png) top right no-repeat; margin-bottom: 30px;
+        }
+       .e_overlay_content .btn_thin_blue span {
+            background: url(/App_Images/bg_btn_right_blue2.png) top right no-repeat; margin-bottom: 30px;
+        }
+       .e_overlay_content .btn_fat_red span,.e_overlay_content .btn_fat_blue span
+         {
+            min-width: 63px;
+            min-height: 80px;          
+            padding: 0px 32px;
+            line-height: 80px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+            margin-right: -33px;
+           
+        }
+       .e_overlay_content .btn_thin_red span,.e_overlay_content .btn_thin_blue span
+         {
+            min-width: 63px;
+            min-height: 59px;         
+            padding: 0px 32px;
+            line-height: 59px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+            margin-right: -33px;
+
+        }
+
+       .e_overlay_content .btn_thin_blue span.sm,
+       .e_overlay_content .btn_thin_blue span.sm,
+       .e_overlay_content .btn_thin_blue span.sm,
+       .e_overlay_content .btn_thin_blue span.sm { font-size: 14px ;}
+
+       .e_overlay_content .btn { margin-right: 60px; margin-bottom: 0px; margin-top: -30px}
+        .e_overlay_content .btn_cancel {
+            text-decoration: none;
+            float: left;
+            text-transform: uppercase;
+            line-height: 54px;
+            font-size: 14px;
+            color: #acacac;
+            margin-left: 30px;
+        }
+
+
+                                        
+         /* Glossary */
+		            .e_overlay_content abbr.vocab {text-decoration: underline;text-indent: 0;  margin: -2px 0; position: relative; display: inline-block; line-height: normal; padding: 0px 0; z-index: 3;}
+			            .e_overlay_content abbr.vocab:hover {z-index: 5;}
+			            .e_overlay_content abbr.vocab .definitionbox {position: absolute; bottom:10px; left:20%; font: 14px arial; color: #636974; background: #fefed5 url(/App_Images/bg_definitionbox.gif) no-repeat top right; border: 1px solid #c5c5c5; width: 280px; padding: 10px; padding-top: 30px; display: none;}
+		            .e_overlay_content abbr.vocab:hover {cursor: pointer;}
+			            .e_overlay_content abbr.vocab:hover .definitionbox {display: block;}
+		            .e_overlay_content abbr.vocab .definitionbox abbr.glossary {display:none;float: right; width: 280px; text-align: right; font: 11px arial; color: #828790; margin-bottom: 10px; text-transform: uppercase;}
+		            .e_overlay_content abbr.vocab .definitionbox abbr.definition {float: left; width: 280px; font: 14px arial; color: #636974; }
+			            .e_overlay_content abbr.vocab .definitionbox abbr.definition a {color:#83477f;}
+
+
+
+                        
+        .e_overlay_content .btn_fat_red, .e_overlay_content .btn_thin_red, .e_overlay_content .btn_thin_blue, .e_overlay_content .btn_fat_blue,
+        .e_overlay_content .btn_fat_red span, .e_overlay_content .btn_thin_red span, .e_overlay_content .btn_thin_blue span, .e_overlay_content .btn_fat_blue span { float: left; font-size: 16px;}
+                
+        .e_overlay_content .btn_fat_red {
+            background: url(/App_Images/bg_btn_left_red1.png) top left no-repeat; margin-bottom: 30px;
+        }
+        .e_overlay_content .btn_thin_red {
+            background: url(/App_Images/bg_btn_left_red2.png) top left no-repeat; margin-bottom: 30px;
+        }
+        .e_overlay_content .btn_fat_blue {
+            background: url(/App_Images/bg_btn_left_blue1.png) top left no-repeat; margin-bottom: 30px;
+        }
+        .e_overlay_content .btn_thin_blue {
+            background: url(/App_Images/bg_btn_left_blue2.png) top left no-repeat; margin-bottom: 30px;
+        }
+        .e_overlay_content .btn_fat_red span {
+            background: url(/App_Images/bg_btn_right_red1.png) top right no-repeat; margin-bottom: 30px;
+        }
+        .e_overlay_content .btn_thin_red span {
+            background: url(/App_Images/bg_btn_right_red2.png) top right no-repeat; margin-bottom: 30px;
+        }
+        .e_overlay_content .btn_fat_blue span {
+            background: url(/App_Images/bg_btn_right_blue1.png) top right no-repeat; margin-bottom: 30px;
+        }
+        .e_overlay_content .btn_thin_blue span {
+            background: url(/App_Images/bg_btn_right_blue2.png) top right no-repeat; margin-bottom: 30px;
+        }
+
+        .e_overlay_content .btn_fat_red, .e_overlay_content .btn_thin_red, .e_overlay_content .back .btn_thin_blue {
+    
+       /* position: fixed;
+        margin-left: -180px;
+        margin-top: -20px;*/
+       float: left;
+       margin-top: -11px;
+       margin-bottom: 0px;
+    
+    }
+        .e_overlay_content .btn_fat_red span, .e_overlay_content .btn_fat_blue span, .e_overlay_content .back .btn_thin_blue span
+         {
+            min-width: 63px;
+            min-height: 60px;          
+            padding: 0px 32px;
+            line-height: 60px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+            margin-right: -33px;
+           
+        }

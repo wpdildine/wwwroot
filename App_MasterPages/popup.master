@@ -1,0 +1,33 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="popup.master.cs" Inherits="Master_Pages_popup" %>
+<%@ Register Assembly="Microsoft.Web.Atlas" Namespace="Microsoft.Web.UI" TagPrefix="cc1" %>
+
+<%@ Register Assembly="Microsoft.Web.Atlas" Namespace="Microsoft.Web.UI" TagPrefix="cc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Register Assembly="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+    Namespace="System.Web.UI" TagPrefix="asp" %>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title>Admin</title>
+    <%--<script type="text/javascript" src="/App_Js/dhtmlwindow.js"></script>--%>
+    <script type="text/javascript" src="/App_Js/tools.js"></script>
+     <%--<link type="text/css" rel="Stylesheet" href="/App_Css/dhtmlwindow.css" />--%>
+    <link type="text/css" rel="Stylesheet" href="/App_Css/epicCMS.css" />
+</head>
+
+<body  onload="SizeToFit()" style="background: url(/admin/images/bg_cms_popup.gif) repeat-y">
+    <form id="form1"  runat="server">  
+      <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" >
+        
+          </asp:ScriptManager>
+        
+    <div>
+      
+        <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+
+        </asp:contentplaceholder>
+    </div>
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,167 @@
+﻿
+/* Buttons */
+        #content .btn_fat_red, #content .btn_thin_red, #content .btn_thin_blue, #content .btn_fat_blue,
+        #content .btn_fat_red span, #content .btn_thin_red span, #content .btn_thin_blue span, #content .btn_fat_blue span { float: left; font-size: 16px;}
+                
+        #content .btn_fat_red {
+            background: url(/App_Images/bg_btn_left_red1.png) top left no-repeat; margin-bottom: 30px;
+        }
+        #content .btn_thin_red {
+            background: url(/App_Images/bg_btn_left_red2.png) top left no-repeat; margin-bottom: 30px;
+        }
+        #content .btn_fat_blue {
+            background: url(/App_Images/bg_btn_left_blue1.png) top left no-repeat; margin-bottom: 30px;
+        }
+        #content .btn_thin_blue {
+            background: url(/App_Images/bg_btn_left_blue2.png) top left no-repeat; margin-bottom: 30px;
+        }
+        #content .btn_fat_red span {
+            background: url(/App_Images/bg_btn_right_red1.png) top right no-repeat; margin-bottom: 30px;
+        }
+        #content .btn_thin_red span {
+            background: url(/App_Images/bg_btn_right_red2.png) top right no-repeat; margin-bottom: 30px;
+        }
+        #content .btn_fat_blue span {
+            background: url(/App_Images/bg_btn_right_blue1.png) top right no-repeat; margin-bottom: 30px;
+        }
+        #content .btn_thin_blue span {
+            background: url(/App_Images/bg_btn_right_blue2.png) top right no-repeat; margin-bottom: 30px;
+        }
+        #content .btn_fat_red span, #content .btn_fat_blue span
+         {
+            min-width: 63px;
+            min-height: 80px;          
+            padding: 0px 32px;
+            line-height: 80px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+            margin-right: -33px;
+           
+        }
+        #content .btn_thin_red span, #content .btn_thin_blue span
+         {
+            min-width: 63px;
+            min-height: 59px;         
+            padding: 0px 32px;
+            line-height: 59px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+            margin-right: -33px;
+
+        }
+
+        #content .btn_thin_blue span.sm,
+        #content .btn_thin_blue span.sm,
+        #content .btn_thin_blue span.sm,
+        #content .btn_thin_blue span.sm { font-size: 14px ;}
+        /* Button Holder, used when there is text to the left of one of our blue/red buttons */
+        #content .btn_holder {
+
+                clear: both;
+                float: left;
+                width: 100%;
+
+            }
+                #content .btn_holder label { 
+                float: left;
+                font-size: 16px;
+                font-weight: normal;
+                color: #424242;
+                padding-top: 22px;
+                margin: 0 15px 10px 0;
+                line-height: 20px;
+                }
+
+        /* Media buttons (Play Audio, Play Video)*/
+         #content .mediabtn_long, #content .mediabtn_short1, #content .mediabtn_short2, #content .mediabtn_short3 {
+            float: left; 
+            background: #2e2e2e;
+            color: #fff;
+            font-size: 16px;
+            color: #fff;
+            text-transform: uppercase;
+            width: 948px;
+            text-indent: 50px;
+            text-decoration: none; 
+            line-height: 62px;
+            height: 62px;
+            position: relative;
+            margin-bottom: 30px;
+            margin-left: 30px; 
+            margin-right: -30px;
+
+        }
+        #content .mediabtn_long img, #content .mediabtn_short1 img, #content .mediabtn_short2 img, #content .mediabtn_short3 img {
+            position: absolute;
+            left: -36px;
+            top: -8px;
+        }
+        #content .mediabtn_long span, #content .mediabtn_short1 span, #content .mediabtn_short2 span, #content .mediabtn_short3 span {
+
+            float: right; 
+            background: #d5d5d5;
+            width: 680px;
+            color: #2e2e2e;
+            text-transform: capitalize;
+            padding: 20px 20px 18px 20px;
+            text-indent: 0;
+            line-height: 24px;
+            min-height: 24px;
+
+        }
+
+        #content .mediabtn_long abbr, #content .mediabtn_short1 abbr, #content .mediabtn_short2 abbr, #content .mediabtn_short3 abbr {
+
+            line-height: 20px;
+
+        }
+
+
+        #content .mediabtn_short1 { width: 450px; }
+        #content .mediabtn_short1 span{ width: 240px; padding: 20px 0px 18px 10px}
+
+        #content .mediabtn_short2 { width: 450px; }
+        #content .mediabtn_short2 span{ width: 200px; }
+
+        #content .mediabtn_short3 { width: 250px; }
+
+        #content .mediabtn_long span.long, #content .mediabtn_short1 span.long, #content .mediabtn_short2 span.long, #content .mediabtn_short3 span.long
+        {
+
+            padding-top: 8px;
+            padding-bottom: 6px;
+
+        }
+
+        
+    #content div.media_holder {
+
+        clear: both;
+        display: none; 
+        float: left;
+        margin-top: -30px; 
+        margin-left: 30px;
+        margin-right: -100px;
+        width: 948px;
+        min-height: 25px;
+        color: #333;
+        margin-bottom: 30px;
+
+    }
+
+     #content div.mh_short1 { width: 450px; }
+     #content div.mh_short2 { width: 450px; }
+     #content div.mh_short3 { width: 250px; }
+
+    #content div.audio_holder { display: block; visibility: hidden; margin-top: -25px} 
+    #content div.MISSING { display: block; visibility: visible; background: #f00; }
+    #content div.media_holder div
+    {
+        font-family: genevaregular;
+        font-size: 14px;
+        text-transform: uppercase;
+        line-height: 24px; 
+
+    }

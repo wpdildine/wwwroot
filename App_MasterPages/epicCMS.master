@@ -1,0 +1,71 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="epicCMS.master.cs" Inherits="Master_Pages_epicCMS" %>
+<%@ Register Src="../admin/controls/ctlSiteMap.ascx" TagName="ctlSiteMap" TagPrefix="uc2" %>
+<%@ Register Src="../admin/controls/cmsNav.ascx" TagName="cmsNav" TagPrefix="uc1" %>
+<%@ Register Assembly="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+    Namespace="System.Web.UI" TagPrefix="asp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <link href="../App_Css/epicCMS.css" rel="stylesheet" type="text/css" />
+     <script type="text/javascript" src="../App_Js/epicCMS.js"></script>
+<%--<script type="text/javascript" src="/App_Js/imagebox/jquery.js"></script>
+<script type="text/javascript" src="/App_Js/imagebox/thickbox.js"></script>
+<link rel="stylesheet" href="/App_Css/thickbox.css" type="text/css" media="screen" />--%>
+ <script type="text/javascript">
+ function onkdown()
+ {
+ if (window.event.keyCode == 13)
+{
+    event.returnValue=false;
+    event.cancel = true;
+}
+}
+</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=ce87c29c-f2dc-4e71-b77e-88218439a6d0&amp;type=website&amp;embeds=0"></script>
+<style type="text/css">
+    /* Hide the sharethis text */
+    .stbuttontext { display: none;}
+</style>
+</head>
+<body runat="server" onkeydown="onkdown" id="bodytag" >
+    <form id="form1" runat="server" method="post"><div id="wrapper">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" AsyncPostBackTimeout ="360000" ></asp:ScriptManager>
+
+        <div id="top" style="background:#252525">
+            <h1><a href="/admin/default.aspx?pg=welcome"><img src="/admin/images/logo_cms.gif" alt="CMS" /></a></h1>
+            
+        </div>
+    
+        <div id="container">
+            <asp:LoginStatus ID="LoginStatus1" runat="server" CssClass="logout" LogoutAction="RedirectToLoginPage" />
+            <!-- Below three line s are commented out for now -->
+            <asp:HyperLink Visible="false" ID="hlQA" runat="server" Target="_blank">Preview Site</asp:HyperLink>
+            <asp:Label ID="lblSpc" Visible="false" runat="server" Text="&nbsp;|&nbsp;"></asp:Label>
+            <asp:HyperLink Visible="false" ID="hlLive" runat="server" Target="_blank">View Live Site</asp:HyperLink>
+            
+            <uc1:cmsNav ID="CmsNav1" runat="server" />
+            
+            <table id="content" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="left">
+                        <asp:contentplaceholder id="NavContent" runat="server">
+                         
+                        </asp:contentplaceholder>
+                    </td>
+            
+            
+                    <td class="right" id="contentcell" runat="server" >
+                        <asp:contentplaceholder id="MainContent" runat="server"></asp:contentplaceholder>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    
+
+    
+
+    </div></form>
+</body>
+</html>

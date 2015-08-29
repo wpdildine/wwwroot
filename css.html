@@ -1,0 +1,529 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="App_Css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="App_Css/webfonts/geneva/stylesheet.css" />
+
+    <style type="text/css">
+        body, p, a, h1, h2, h3, h4, h5, h6, ul, li, dl, dt, dd, input, textarea, label, div, span {
+            font-family: genevaregular;
+        }
+
+        #overall_wrapper {
+            width: 1152px;
+            background: #fff;
+            margin: 0px auto;
+            font-size: 18px;
+        }
+
+        #header {
+            background: #e5ad00;
+            width: 100%;
+            height: 95px;
+            float: left;
+            margin: 10px 0px;
+        }
+
+            #header h1 {
+                float: left;
+                margin-left: 85px;
+            }
+
+            #header ul {
+                float: right;
+                margin-top: 15px;
+                margin-right: 85px;
+            }
+
+            #header li {
+                border-right: 1px solid #fff;
+                float: left;
+                padding: 7px;
+                margin-bottom: -15px;
+                height: 52px;
+            }
+
+                #header li:first-child {
+                    border-left: 1px solid #fff;
+                }
+
+                #header li a {
+                    float: left;
+                    text-align: center;
+                    height: 73px;
+                    margin-top: -14px;
+                    padding: 7px 18px 0;
+                    text-transform: uppercase;
+                    text-shadow: 2px 2px 2px rgba(150, 150, 150, 1);
+                    color: #fff;
+                    font-size: 16px;
+                    text-decoration: none;
+                }
+
+                    #header li a img {
+                        margin-bottom: -5px;
+                        margin-top: -3px;
+                    }
+
+                    #header li a:hover {
+                        text-decoration: underline;
+                        background: #eabd33;
+                    }
+
+
+        #subnav1 {
+            background: #fff url(App_Images/bg_subnav1.png) no-repeat;
+            width: 100%;
+            height: 85px;
+            float: left;
+            margin: 10px 0px 0px;
+            position: relative;
+        }
+
+            #subnav1 li {
+                float: left;
+                padding: 5px;
+                padding-bottom: 17px;
+                margin-top: 14px;
+                margin-left: 9px;
+                height: 38px;
+            }
+
+                #subnav1 li:hover {
+                    background: #2d2d2d;
+                    border: 1px solid #4a5059;
+                    padding: 4px;
+                    padding-bottom: 17px;
+                    border-bottom: 0px;
+                }
+
+                #subnav1 li:hover dl, #subnav1 li.on {
+                    display: block;
+                }
+
+                ul#subnav1 li:first-child {
+                    margin-left: 78px;
+                }
+
+                #subnav1 li a.t1:first-child {
+                    float: left;
+                    background-color: rgba(251,251,251, .1);
+                    border: 1px solid #549ec2;
+                    -webkit-box-shadow: 0px 0px 22px 4px rgba(0,0,0,1);
+                    -moz-box-shadow: 0px 0px 22px 4px rgba(0,0,0,1);
+                    box-shadow: 0px 0px 22px 4px rgba(0,0,0,.4);
+                    text-transform: uppercase;
+                    text-align: center;
+                    text-shadow: 2px 2px 2px rgba(0, 0, 0, .4);
+                    color: #ffc600;
+                    font-size: 16px;
+                    padding: 11px 0 10px;
+                    width: 314px;
+                    text-decoration: none;
+                }
+
+
+            #subnav1 dl {
+                height: 42px;
+                border-top: 1px solid #4a5059;
+                border-bottom: #3e3e3e;
+                float: left;
+                width: 100%;
+                position: absolute;
+                left: 0;
+                bottom: -32px;
+                background: #2e2e2e;
+                z-index: 1;
+                -webkit-box-shadow: inset 0px 12px 21px 0px rgba(0,0,0,0.75);
+                -moz-box-shadow: inset 0px 12px 21px 0px rgba(0,0,0,0.75);
+                box-shadow: inset 0px 12px 21px 0px rgba(0,0,0,0.75);
+                display: none;
+            }
+
+                #subnav1 dl dt {
+                    border: 0px;
+                    border-right: 1px solid #646464;
+                    border-left: 1px solid #222;
+                    margin-top: 12px;
+                    margin-bottom: 9px;
+                    float: left; 
+                }
+
+                #subnav1 dt:first-child {
+                    margin-left: 92px;
+                }
+
+                #subnav1 dl dt a.t2 {
+                    font-size: 16px;
+                    text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
+                    color: #fff;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    float: left; 
+                    padding: 4px 30px;
+                   
+                }
+                #subnav1 dl dt a.t2 span {  opacity: .3}
+
+                #subnav1 dl dt a.t2:hover span{ opacity: 1;}
+
+                #subnav1 dl dt:first-child  { border-left: 1px solid #646464;}
+                #subnav1 dl dt:first-child a.t2 { border-left: 1px solid #222;}
+
+                #subnav1 dl dt:last-child  { border-right: 1px solid #222;}
+                #subnav1 dl dt:last-child a.t2 { border-right: 1px solid #646464;}
+
+
+
+                /* Footer Section (secondary links and graphic) */
+                #footer {
+
+                    background: #e5ad00 url(App_Images/bg_footer.png) no-repeat;
+                    width: 100%;
+                    height: 232px;
+                    float: left;
+
+                }
+                #footer li { float: left; }
+                #footer li a {
+
+                    float: left;
+                    margin-top: 29px;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+                    border-right: 1px solid #fff;
+                    padding: 8px 20px;
+                    color: #fff;
+                    text-decoration: none;
+
+
+                }
+                    #footer li a:hover { text-decoration: underline; }
+                    #footer li:first-child a { border-left: 1px solid #fff; margin-left: 85px;}
+
+
+        #content
+        {
+
+            clear: both;
+            padding: 0px 95px;
+
+        }
+
+               
+        /* h1: Normal white header with blue bar background, (<em>) turns it into Times Roman, <label> gives transparent version with stroke @ font size 48*/
+        #content h1 { 
+            clear: both;
+            font-size: 48px; 
+            font-weight: bold; 
+            background-color: #6a8fee; 
+            padding: 5px 95px 0px;  
+            margin: 0px -95px 30px;
+            color: #fff;
+            height: 43px;
+        }
+            #content h1 span { font-family: 'Times New Roman';}
+            #content h1 label { 
+                
+                /* WebKit (Safari/Chrome) Only */
+                  -webkit-text-stroke: 1px black;
+  
+                  /* If we weren't using text-shadow, we'd set a fallback color
+                     and use this to set color instead
+                    -webkit-text-fill-color: white; */
+  
+                  color: #bacaf2; 
+  
+                  text-shadow:
+                    3px 3px 0 #6a8fee,
+                    /* Simulated effect for Firefox and Opera
+                       and nice enhancement for WebKit */
+                   -1px -1px 0 #6a8fee,  
+                    1px -1px 0 #6a8fee,
+                   -1px  1px 0 #6a8fee,
+                    1px  1px 0 #6a8fee;
+            }
+
+        /* h2: Smaller heading @ font size 22*/
+        #content h3 { font-size: 22px; font-weight: bold; margin-bottom: 15px; }
+                
+        /* h6: Welcome text on welcome page, white CAPS @ font size 36*/
+        #content h6 { text-transform: uppercase; font-size: 36px; font-weight: bold; margin-bottom: 15px}
+
+        /* Font Colors - can be applied to any text */
+        #content .c_white { color: #fff; }
+        #content .c_blue { color: #6a8fee; }
+        
+        /* Font Styles - can be applied to any text */
+        #content .s_bold { font-weight: normal; }
+        #content .s_bold { font-weight: bold; }
+        #content .s_u { text-decoration: underline; }
+
+        /* Normal Text */
+        #content p, #content li { font-size: 18px; font-weight: bold; color: #134674; line-height: 24px; letter-spacing: 1px} 
+        #content p { margin-bottom: 30px; }
+        #content li { margin-bottom: 15px; }
+
+        /* List Styles */
+        #content ul.star_green_lg li, #content ul.star_blue_lg li, #content ul.star_gray_lg li
+        {
+
+            min-height: 48px;
+            padding-left: 58px;
+            padding-top: 9px;
+
+        }
+        #content ul.star_green_lg li { background: url(App_Images/ico_bullet_lg_greenstar.png) left top no-repeat;  }
+        #content ul.star_blue_lg li { background: url(App_Images/ico_bullet_lg_bluestar.png) left top no-repeat; }
+        #content ul.star_gray_lg li { background: url(App_Images/ico_bullet_lg_graystar.png) left top no-repeat; }
+
+        
+        #content ul.star_green_med li, #content ul.star_blue_med li, #content ul.star_gray_med li
+        {
+
+            min-height: 36px;
+            padding-left: 46px;
+            padding-top: 4px;
+
+        }
+        #content ul.star_green_med li { background: url(App_Images/ico_bullet_med_greenstar.png) left top no-repeat;  }
+        #content ul.star_blue_med li { background: url(App_Images/ico_bullet_med_bluestar.png) left top no-repeat; }
+        #content ul.star_gray_med li { background: url(App_Images/ico_bullet_med_graystar.png) left top no-repeat; }
+
+        #content ul.star_green_sm li, #content ul.star_blue_sm li, #content ul.star_gray_sm li
+        {
+
+            min-height: 26px;
+            padding-left: 38px;
+            padding-top: 1px;
+
+        }
+        #content ul.star_green_sm li { background: url(App_Images/ico_bullet_sm_greenstar.png) left top no-repeat;  }
+        #content ul.star_blue_sm li { background: url(App_Images/ico_bullet_sm_bluestar.png) left top no-repeat; }
+        #content ul.star_gray_sm li { background: url(App_Images/ico_bullet_sm_graystar.png) left top no-repeat; }
+
+
+        /* Buttons */
+        #content .btn_fat_red, #content .btn_thin_red, #content .btn_thin_blue, #content .btn_fat_blue,
+        #content .btn_fat_red span, #content .btn_thin_red span, #content .btn_thin_blue span, #content .btn_fat_blue span { float: left; }
+                
+        #content .btn_fat_red {
+            background: url(App_Images/bg_btn_left_red1.png) top left no-repeat;
+        }
+        #content .btn_thin_red {
+            background: url(App_Images/bg_btn_left_red2.png) top left no-repeat;
+        }
+        #content .btn_fat_blue {
+            background: url(App_Images/bg_btn_left_blue1.png) top left no-repeat;
+        }
+        #content .btn_thin_blue {
+            background: url(App_Images/bg_btn_left_blue2.png) top left no-repeat;
+        }
+        #content .btn_fat_red span {
+            background: url(App_Images/bg_btn_right_red1.png) top right no-repeat;
+        }
+        #content .btn_thin_red span {
+            background: url(App_Images/bg_btn_right_red2.png) top right no-repeat;
+        }
+        #content .btn_fat_blue span {
+            background: url(App_Images/bg_btn_right_blue1.png) top right no-repeat;
+        }
+        #content .btn_thin_blue span {
+            background: url(App_Images/bg_btn_right_blue2.png) top right no-repeat;
+        }
+        #content .btn_fat_red span, #content .btn_fat_blue span
+         {
+            min-width: 63px;
+            min-height: 80px;          
+            padding: 0px 32px;
+            line-height: 80px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+            margin-right: -33px;
+           
+        }
+        #content .btn_thin_red span, #content .btn_thin_blue span
+         {
+            min-width: 63px;
+            min-height: 59px;         
+            padding: 0px 32px;
+            line-height: 59px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+            margin-right: -33px;
+
+        }
+
+
+        /* 1.0 Welcome */
+        .pg_welcome #content .top {
+
+            
+            background: url(App_Images/img_welcome1.png) no-repeat;
+            height: 433px;
+            position: relative;
+            margin: 0px -95px; 
+            
+
+        }
+
+            .pg_welcome #content .top .inner { 
+                color: #fff; 
+                position: absolute; 
+                top: 103px; 
+                left: 577px; 
+                width: 480px 
+
+            }
+            
+        .pg_welcome #content .btm {
+
+            
+            background: url(App_Images/img_welcome2.png) no-repeat;
+            height: 285px;
+            position: relative;
+            margin: 0px -95px; 
+            
+
+        }
+
+         .pg_welcome #content .btm .inner { 
+                color: #fff; 
+                position: absolute; 
+                top: 30px; 
+                left: 95px; 
+                width: 975px 
+
+            }
+
+                     .pg_welcome #content .btm .arrow { position: absolute; top: 0px; right: 115px;}
+                     .pg_welcome #content .btm .btn { position: absolute; z-index: 10; top: 60px; right: 150px;}
+
+    </style>
+</head>
+<body id="html_body" class="pg_welcome">
+    <form id="form1">
+
+        <div id="overall_wrapper">
+            <div class="inner">
+
+
+                <div id="header">
+
+                    <h1><a href="/en-us/default.aspx"><img src="App_Images/logo_top.png" alt="The Greenspan Floortime Approach" /></a></h1>
+                    <ul>
+
+                        <li><a href="/en-us/default.aspx"><img src="App_Images/ico_nav_home_white.png" alt="Home" /><br />Home</a></li>
+                        <li><a href="/en-us/troubleshooting/default.aspx"><img src="App_Images/ico_nav_troubleshooting_white.png" alt="Troubleshooting" /><br />Troubleshooting</a></li>
+                        <li><a href="/en-us/tools/glossary/default.aspx"><img src="App_Images/ico_nav_tools_white.png" alt="Tools" /><br />Tools</a></li>
+
+                    </ul>
+                </div>
+
+                <ul id="subnav1">
+
+                    <li>
+                        <a class="t1" href="/en-us/steps/follow/default.aspx">Floortime Steps</a>
+                        <dl>
+                            <dt><a class="t2" href="/en-us/steps/follow/default.aspx"><span>Follow the Lead</span></a></dt>
+                            <dt><a class="t2" href="/en-us/steps/challenge/default.aspx"><span>Challenge</span></a></dt>
+                            <dt><a class="t2" href="/en-us/steps/expand/default.aspx"><span>Expand</span></a></dt>
+                        </dl>
+                    </li>
+                    <li>
+                        <a class="t1" href="/en-us/steps/types/default.aspx">Types of Play</a>
+                        <dl>
+                            <dt><a class="t2" href="/en-us/types/sensory/follow.aspx"><span>Sensory</span></a></dt>
+                            <dt><a class="t2" href="/en-us/types/object/follow.aspx"><span>Object</span></a></dt>
+                            <dt><a class="t2" href="/en-us/types/symbolic/follow.aspx"><span>Symbolic</span></a></dt>
+                        </dl>
+                    </li>
+                    <li>
+                        <a class="t1" href="/en-us/steps/yourFT/default.aspx">Your Floortime Session</a>
+                        <dl>
+                            <dt><a class="t2" href="/en-us/yourFT/setup/default.aspx"><span>Setup your Floortime Space</span></a></dt>
+                            <dt><a class="t2" href="/en-us/yourFT/evaluate/default.aspx"><span>Evaluate your Floortime session</span></a></dt>
+                        </dl>
+                    </li>
+
+                </ul>
+
+                <div id="content">
+                    <div class="top">
+
+                        <div class="inner">
+                            <h6 class="s_bold">Welcome!</h6>
+                            <p class="s_bold c_white">
+                                Welcome to the Floortime e-manual.<br />
+                                This interactive tool will provide you with all you need to get started with Floortime, troubleshoot challenges you may encounter, and explore possibilities for helping your child to grow.  Perhaps more importantly, it will support you as you build closer emotional connections with your child.
+                            </p>
+                        </div>
+                    </div>
+                    <h1>Inside the <span>e</span>-Manual</h1>
+                    <p>The training course includes these six components. We ask that you follow the steps in this order to make sure that you have the background and understanding to use Floortime to its fullest. Our best wishes for joy in the new experiences with your child. </p>
+                    <ul class="star_green_med">
+
+                        <li>
+                            Start your training by learning about the three critical steps in doing Floortime.
+                        </li>
+                        <li>
+                            Delve into short Floortime video clips by selecting one of three types of play based on your child’s abilities: sensory, object, or symbolic.
+                        </li>
+                        <li>
+                            Explore videos with step-by-step explanations on how to help your child relate and communicate with you.
+                        </li>
+                        <li>
+                            As you succeed, learn how to expand the play and your child’s abilities to communicate and think.
+                        </li>
+                        <li>
+                            Set the scene for a Floortime session with your own child.
+                        </li>
+                        <li>
+                            Get insights and tips to help with roadblocks to success
+                        </li>
+
+                    </ul>
+                    <div class="btm">
+                        <img class="arrow" src="App_Images/ico_arrow_welcome.png" />
+                        <a href="/en-us/steps/follow/default.aspx" class="btn btn_fat_blue"><span>Get Started</span></a>
+                        <div class="inner">
+                            <h3 class="s_bold c_white">The Steps to Successful Floortime</h3>
+                            <p class="c_white">
+                                Floortime is play, but it is play with a purpose. With this training <br />
+                                course, you learn to tune into your child’s emotions and interests. By<br />
+                                 responding to these basic motivations, you open a new world for you <br />
+                                and your child. Begin by following your child’s lead.
+                            </p>
+                            <p class="c_white">
+                                Once you’ve completed the initial introductory training, you’ll have a chance to go back and explore more types of play, suggestions for expanding play, and ideas for keeping Floortime fresh and engaging for both you and your child.
+                            </p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <ul id="footer">
+
+                    <li><a href="/en-us/default.aspx">Home</a></li>
+                    <li><a href="/en-us/troubleshooting/default.aspx">Troubleshooting</a></li>
+                    <li><a href="/en-us/tools/glossary/default.aspx">Glossary</a></li>
+                    <li><a href="/en-us/tools/resources/default.aspx">Resources</a></li>
+
+
+                </ul>
+
+            </div>
+        </div>
+
+
+
+
+
+    </form>
+</body>
+</html>

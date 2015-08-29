@@ -1,0 +1,173 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="Master_Pages_MasterPage" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc2" %>
+<%@ Register Assembly="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI" TagPrefix="asp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    
+ 
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="description" content="" runat="server" id="meta_desc"/>
+    <meta name="keywords" content=""  runat="server" id="meta_keywords"/>
+    <meta name="language" content="EN-US" />
+    <meta name="author" content="" />
+    <meta name="robots" content="all" />
+    <meta name="revisit-after" content="1 days" />
+    <meta name="distribution" content="GLOBAL" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    
+    <script type="text/javascript" src="/App_Js/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="/App_Js/scrollto/jquery.scrollTo.min.js"></script> 
+    <script type="text/javascript" src="/App_Js/easydropdown-master/src/jquery.easydropdown.js"></script>
+    <link rel="stylesheet" type="text/css" href="/App_Css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="/App_Css/webfonts/geneva/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="/App_Css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/App_Css/buttons.css" />
+    <link rel="stylesheet" type="text/css" href="/App_Css/text.css" />
+    <link rel="stylesheet" type="text/css" href="/App_Css/pages.css" />
+    <link rel="stylesheet" type="text/css" href="/App_Css/overlay.css" />
+    <link rel="stylesheet" type="text/css" href="/App_Js/easydropdown-master/themes/easydropdown.floortime.css" />
+    <script src="http://jwpsrv.com/library/0tCsWOIWEeSNxRJtO5t17w.js"></script>
+    <script type="text/javascript">jwplayer.key = "KrZPJLoXOq9HGsNJ2TOTWKUHpWtV98VmANWGz73NnAk="</script>
+    <script type="text/javascript" src="/App_JS/functions.js"></script>
+    
+
+</head>
+<body runat="server" id="html_body"><form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+    
+    <div id="overall_wrapper">
+            <div class="overall_inner">
+
+                   <div id="header">
+
+                    <h1><a href="/en-us/default.aspx"><img src="/App_Images/logo_top.png" alt="The Greenspan Floortime Approach" /></a></h1>
+                    <ul>
+
+                        <li class="b_home"><a class="t1" href="/en-us/default.aspx"><img src="/App_Images/ico_nav_home_white.png" alt="Home" /><br />Home</a></li>
+                        <li class="b_troubleshooting"><a class="t1" href="/en-us/troubleshooting/default.aspx"><img src="/App_Images/ico_nav_troubleshooting_white.png" alt="Troubleshooting Floortime" /><br />Troubleshooting Floortime</a></li>
+                        <li class="b_tools">
+                            <a class="t1" href="/en-us/tools/glossary/default.aspx"><img src="/App_Images/ico_nav_tools_white.png" alt="Tools" /><br />Tools
+                                <dl>
+                                <dt><a href="/en-us/tools/glossary/default.aspx">Glossary</a></dt>
+                                <dd><a href="/en-us/tools/resources/default.aspx">Resources</a></dd>
+
+                            </dl>
+                            </a>
+
+                            
+
+                        </li>
+
+                    </ul>
+                </div>
+
+                <ul id="subnav1">
+
+                    <li class="li_steps">
+                        <a class="t1" href="/en-us/steps/follow/default.aspx">Floortime Steps</a>
+                        <dl>
+                            <dt class="b_2_1"><a class="t2" href="/en-us/steps/follow/default.aspx"><span>Follow the Lead</span></a></dt>
+                            <dt class="b_2_2"><a class="t2" href="/en-us/steps/challenge/default.aspx"><span>Challenge</span></a></dt>
+                            <dt class="b_2_3"><a class="t2" href="/en-us/steps/expand/default.aspx"><span>Expand</span></a></dt>
+                        </dl>
+                    </li>
+                    <li class="li_types">
+                        <a class="t1" href="/en-us/types/default.aspx">Types of Play</a>
+                        <dl>
+                            <dt class="b_3_1"><a class="t2" href="/en-us/types/sensory/follow.aspx"><span>Sensory</span></a></dt>
+                            <dt class="b_3_2"><a class="t2" href="/en-us/types/object/follow.aspx"><span>Object</span></a></dt>
+                            <dt class="b_3_3"><a class="t2" href="/en-us/types/symbolic/follow.aspx"><span>Symbolic</span></a></dt>
+                        </dl>
+                    </li>
+                    <li class="li_yourft">
+                        <a class="t1" href="/en-us/yourFT/default.aspx">Your Floortime Session</a>
+                        <dl>
+                            <dt class="b_4_1"><a class="t2" href="/en-us/yourFT/setup/default.aspx"><span>Setup your Floortime Space</span></a></dt>
+                            <dt class="b_4_2"><a class="t2" href="/en-us/yourFT/evaluate/default.aspx"><span>Your Floortime Sessions</span></a></dt>
+                        </dl>
+                    </li>
+
+                </ul>
+
+                <ul id="subnav2">
+                    <li>
+                    <dl class="dl_sect_3_1">
+                        <dt><a href="/en-us/types/sensory/follow.aspx">Follow the Lead</a></dt>
+                        <dt><a href="/en-us/types/sensory/challenge1.aspx" class="chal">Challenge &amp; Expand</a></dt>
+
+                        <dd style="width:400px;">
+
+                            <select class="dropdown" onchange="switchExample(this);">
+                                <option value="1">-- Select an Example--</option>
+                                <option value="1">Example 1 - Boy running with blanket</option>
+        	                    <option value="2">Example 2 - Boy moving his legs and being tickled</option>
+        	                    <option value="3">Example 3 - Boy running behind the couch</option>
+                            </select>
+
+                        </dd>
+                    </dl>
+                    </li>
+                    <li>
+                    <dl class="dl_sect_3_2">
+                        <dt><a href="/en-us/types/object/follow.aspx">Follow the Lead</a></dt>
+                        <dt><a href="/en-us/types/object/challenge1.aspx" class="chal">Challenge &amp; Expand</a></dt>
+
+                        <dd style="width:400px">
+
+                            <select class="dropdown" onchange="switchExample(this);">
+                                <option value="1">-- Select an Example--</option>
+                                <option value="1">Example 1 - Boy feeding Dad cookies</option>
+        	                    <option value="2">Example 2 - Girl trying to get pop-up toy</option>
+        	                    <option value="3">Example 3 - Girl with glasses case II</option>
+                            </select>
+
+                        </dd>
+                    </dl>
+                    </li>
+                    <li>
+                    <dl class="dl_sect_3_3">
+                        <dt><a href="/en-us/types/symbolic/follow.aspx">Follow the Lead</a></dt>
+                        <dt><a href="/en-us/types/symbolic/challenge1.aspx" class="chal">Challenge &amp; Expand</a></dt>
+                        <dd style="width:400px">
+
+                            <select class="dropdown" onchange="switchExample(this);">
+        	                    <option value="1">-- Select an Example--</option>
+                                <option value="1">Example 1 - Boy trying to find the princess</option>
+        	                    <option value="2">Example 2 - Boy going to the backyard and park</option>
+        	                    <option value="3">Example 3 - Girl teaching mom a song</option>
+        	                    <option value="4">Example 4 - Boy playing with the house</option>
+                            </select>
+
+                        </dd>
+                    </dl>
+                    </li>
+
+                </ul>
+            
+               
+                <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+            
+                </asp:contentplaceholder>
+        
+                <ul id="footer">
+
+                    <li><a href="/en-us/default.aspx">Home</a></li>
+                    <li><a href="/en-us/troubleshooting/default.aspx">Troubleshooting Floortime</a></li>
+                    <li><a href="/en-us/tools/glossary/default.aspx">Glossary</a></li>
+                    <li><a href="/en-us/tools/resources/default.aspx">Resources</a></li>
+                    <li class="line"><a href="http://www.stanleygreenspan.com/contact-us/" target="_blank">Contact us at: <span>http://www.stanleygreenspan.com/contact-us/</span></a><br /><a href="http://www.balanceinteractivestudios.com" target="_blank">Website developed by <span>Balance Interactive Studios</span></a></li>
+
+                </ul>
+
+            </div>
+        </div>
+     
+</form>
+</body>
+
+
+</html>

@@ -1,0 +1,203 @@
+﻿/* h1: Normal white header with blue bar background, (<em>) turns it into Times Roman, <label> gives transparent version with stroke @ font size 48*/
+        #content h1 { 
+            clear: both;
+            font-size: 48px; 
+            font-weight: bold; 
+            background-color: #6a8fee; 
+            padding: 5px 95px 0px;  
+            margin: 0px -95px 30px;
+            color: #fff;
+            height: 43px;
+            white-space: nowrap; 
+            /* WebKit (Safari/Chrome) Only 
+                  -webkit-text-stroke: 1px #bacaf2;*/
+  
+                  /* If we weren't using text-shadow, we'd set a fallback color
+                     and use this to set color instead
+                    -webkit-text-fill-color: white; */
+
+  
+                  text-shadow:
+                   /*t 1px 1px 0 #6a8fee,
+                     Simulated effect for Firefox and Opera
+                       and nice enhancement for WebKit */
+                   -1px -1px 0 #6a8fee,  
+                    1px -1px 0 #6a8fee,
+                   -1px  1px 0 #6a8fee,
+                    1px  1px 0 #6a8fee;
+        }
+            #content h1 span { font-family: 'Times New Roman';}
+            #content h1 label { 
+                
+                /* WebKit (Safari/Chrome) Only 
+                  -webkit-text-stroke: 1px #bacaf2;*/
+  
+                  /* If we weren't using text-shadow, we'd set a fallback color
+                     and use this to set color instead
+                    -webkit-text-fill-color: white; */
+  
+                  color: #bacaf2; 
+  
+                  text-shadow:
+                    1px 1px 0 #6a8fee,
+                    /* Simulated effect for Firefox and Opera
+                       and nice enhancement for WebKit */
+                   -1px -1px 0 #6a8fee,  
+                    1px -1px 0 #6a8fee,
+                   -1px  1px 0 #6a8fee,
+                    1px  1px 0 #6a8fee;
+            }
+
+            #content h1.tall 
+            {
+
+                height: 90px;
+
+            }
+
+        /* h2: Smaller heading @ font size 28*/
+        #content h2 { clear: both; font-size: 28px; font-weight: bold; margin-bottom: 15px; }
+        
+        /* Gray heading */
+        #content h2.h2_gray { clear: both; color: #134674; margin: -30px -95px 30px; padding: 8px 95px; font-size: 24px; font-weight: bold; background: #e5e5e5;}
+        
+        #content h2.h2_gray2 { clear: both; margin: -30px -95px 30px; font-weight: bold; letter-spacing: 2px; padding: 12px 95px 8px; background: #333; color: #999; text-transform: uppercase; font-style: normal; font-size: 16px; }
+            
+        /* h3: Smaller heading @ font size 22*/
+        #content h3 { font-size: 22px; font-weight: bold; margin-bottom: 15px; }
+         
+        /* h4: Smaller heading @ font size 32, used basically in Troubleshooting and Tools sections*/
+        #content h4 { clear: both; font-size: 32px; font-weight: normal; margin: 0px -95px 30px; padding: 4px 85px; color: #fff; background: #2e2e2e; }
+            #content h4 a { 
+                float: right; 
+                color: #fff; 
+                font-size: 16px; 
+                text-transform: uppercase; 
+                background: url(/App_Images/ico_arrow_up_white.png) no-repeat right 10px; 
+                padding-right: 20px;
+                text-decoration: none;
+                padding-top: 9px;
+
+            }
+
+        #content h4 abbr.vocab { background: #2e2e2e; text-decoration: underline}
+
+        /* h5: Smaller heading @ font size 28, used basically in Troubleshooting and Tools sections*/
+        #content h5 { clear: both; font-size: 28px; font-weight: bold; margin: 0px -95px 10px; padding: 0px 95px; }
+        
+               
+        /* h6: Welcome text on welcome page, white CAPS @ font size 36*/
+        #content h6 { text-transform: uppercase; font-size: 36px; font-weight: bold; margin-bottom: 15px}
+
+
+        /* Normal Text */
+        #content p, #content li , #content strong { font-size: 18px; font-weight: bold; color: #134674; line-height: 24px; letter-spacing: 1px} 
+        #content p { margin-bottom: 30px; }
+        #content li a,
+        #content p a { color: #134674}
+        #content .p { font-size: 18px; font-weight: bold; color: #134674; line-height: 24px; letter-spacing: 1px; margin-bottom: 30px; }
+        #content li { margin-bottom: 15px; }
+        #content ul {clear: both; margin-bottom: 30px;}
+
+        
+        /* Font Colors - can be applied to any text */
+        #content .c_white { color: #fff; }
+        #content .c_blue { color: #6a8fee; }        
+        #content .c_dblue { color: #134674; }
+        #content .c_dgray { color: #2e2e2e; }
+        
+        /* Font Styles - can be applied to any text */
+        #content .s_normal { font-weight: normal; }
+        #content .s_bold { font-weight: bold; }
+        #content .s_u { text-decoration: underline; }
+
+        /* List Styles */
+        #content ul.star_green_lg li, #content ul.star_blue_lg li, #content ul.star_gray_lg li
+        {
+
+            min-height: 48px;
+            padding-left: 58px;
+            padding-top: 9px;
+
+        }
+        #content ul.star_green_lg li { background: url(/App_Images/ico_bullet_lg_greenstar.png) left top no-repeat;  }
+        #content ul.star_blue_lg li { background: url(/App_Images/ico_bullet_lg_bluestar.png) left top no-repeat; }
+        #content ul.star_gray_lg li { background: url(/App_Images/ico_bullet_lg_graystar.png) left top no-repeat; }
+
+        
+        #content ul.star_green_med li, #content ul.star_blue_med li, #content ul.star_gray_med li
+        {
+
+            min-height: 36px;
+            padding-left: 46px;
+            padding-top: 4px;
+
+        }
+        #content ul.star_green_med li { background: url(/App_Images/ico_bullet_med_greenstar.png) left top no-repeat;  }
+        #content ul.star_blue_med li { background: url(/App_Images/ico_bullet_med_bluestar.png) left top no-repeat; }
+        #content ul.star_gray_med li { background: url(/App_Images/ico_bullet_med_graystar.png) left top no-repeat; }
+
+        #content ul.star_green_sm li, #content ul.star_blue_sm li, #content ul.star_gray_sm li
+        {
+
+            min-height: 26px;
+            padding-left: 38px;
+            padding-top: 1px;
+
+        }
+        #content ul.star_green_sm li { background: url(/App_Images/ico_bullet_sm_greenstar.png) left top no-repeat;  }
+        #content ul.star_blue_sm li { font-size: 16px; background: url(/App_Images/ico_bullet_sm_bluestar.png) left top no-repeat; }
+        #content ul.star_gray_sm li { background: url(/App_Images/ico_bullet_sm_graystar.png) left top no-repeat; }
+
+        /* Unordered list for bullets with numbers in them */
+        #content ol.ol_gray li, #content ol.ol_blue li
+        {
+
+            min-height: 48px;
+            padding-left: 58px;
+            padding-top: 9px;
+            color: inherit;
+            position: relative;
+
+        }
+        #content ol.ol_gray li { background: url(/App_Images/ico_bullet_lg_gray.png) left top no-repeat; }
+        #content ol.ol_blue li { background: url(/App_Images/ico_bullet_lg_blue.png) left top no-repeat; }
+        #content ol.ol_gray span.num, #content ol.ol_blue span.num { 
+
+            position: absolute;
+            top: 12px;
+            color: #fff;
+            left: 15px;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, .4);
+        }
+
+        #content ol.ol_gray a, #content ol.ol_blue a {
+
+            color: inherit;
+
+        }
+
+        /* Various Margins*/
+        #content .margR18 { margin-right: 18px}
+
+
+        /* Various small instruction blurbs*/
+        #content .instruction {
+
+            text-indent: 30px;
+            font-size: 14px;
+            margin-bottom: 5px;
+
+
+        }
+
+
+         /* Glossary */
+		            #content abbr.vocab {text-indent: 0; background: #fefed5; margin: -2px 0; position: relative; display: inline-block; line-height: normal; padding: 0px 0; z-index: 3;}
+			            #content abbr.vocab:hover {z-index: 5;}
+			            #content abbr.vocab .definitionbox {position: absolute; bottom:10px; left:20%; font: 14px arial; color: #636974; background: #fefed5 url(/App_Images/bg_definitionbox.gif) no-repeat top right; border: 1px solid #c5c5c5; width: 280px; padding: 10px; padding-top: 30px; display: none;}
+		            #content abbr.vocab:hover {cursor: pointer;}
+			            #content abbr.vocab:hover .definitionbox {display: block;}
+		            #content abbr.vocab .definitionbox abbr.glossary {display:none;float: right; width: 280px; text-align: right; font: 11px arial; color: #828790; margin-bottom: 10px; text-transform: uppercase;}
+		            #content abbr.vocab .definitionbox abbr.definition {float: left; width: 280px; font: 14px arial; color: #636974; }
+			            #content abbr.vocab .definitionbox abbr.definition a {color:#83477f;}

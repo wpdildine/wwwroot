@@ -1,0 +1,27 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="pop.master.cs" Inherits="Master_Pages_pop" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="/App_Css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="/App_Css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/App_Css/styles.css" />
+    <script type="text/javascript" src="/App_Js/jquery-1.3.2.min.js"></script>   
+    <!--[if IE 6.0]>
+        <link rel="stylesheet" type="text/css" href="/App_Css/ie6.css" />
+        <script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.0(beta3)/IE8.js"></script>
+    <![endif]-->
+
+</head>
+<body class="pg_popup" style="background:#fff;font:normal 14px arial;">
+    <form method="post" runat="server" action="">
+        
+            <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+      
+            </asp:contentplaceholder>
+        
+    </form>
+</body>
+</html>
