@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="/App_Css/pages.css" />
     <link rel="stylesheet" type="text/css" href="/App_Css/overlay.css" />
     <link rel="stylesheet" type="text/css" href="/App_Js/easydropdown-master/themes/easydropdown.floortime.css" />
+    <link href='https://fonts.googleapis.com/css?family=Prata' rel='stylesheet' type='text/css'>
     <script src="http://jwpsrv.com/library/0tCsWOIWEeSNxRJtO5t17w.js"></script>
     <script type="text/javascript">jwplayer.key = "KrZPJLoXOq9HGsNJ2TOTWKUHpWtV98VmANWGz73NnAk="</script>
     <script type="text/javascript" src="/App_JS/functions.js"></script>

@@ -16,8 +16,7 @@
     <ul class="star_green_med">
 
         <li>
-            Start your training by learning about the three critical steps in doing Floortime.<br />Please go to <a href="/en-us/tools/resources/default.aspx">Tools</a> to print the general techniques for these three Floortime steps.
-        </li>
+            Start your training by learning about the three critical steps in doing Floortime.<br />
         <li>
             Delve into short Floortime video clips by selecting one of three types of play based on your child’s abilities: 
             <abbr class="vocab"><abbr class="definitionbox"><abbr class="definition">This is a form of play in which a child is engaged mainly through his or her senses, and not through objects or ideas. A child who wants simply to be chased and hugged, who needs the movement or physical contact to feel regulated, is engaging in sensory play; a child who wants to be chased and hugged because she is pretending to be a runaway engine is actually engaging in symbolic play (at a higher developmental level).</abbr></abbr><abbr class="term">sensory</abbr></abbr>, 
@@ -27,12 +26,7 @@
             play.
         </li>
         <li>
-            Explore videos with step-by-step explanations on how to help your child relate and communicate with you. For each video example, you will: 
-            <br />1) watch the video
-            <br />2) read about Floortime techniques used in video
-            <br />3) listen to summary audio clip
-            <br />4) make your own assessment
-            <br />5) try evaluating a Floortime session
+            Explore videos with step-by-step explanations on how to help your child relate and communicate with you.
         </li>
         <li>
             As you succeed, learn how to <abbr class="vocab"><abbr class="definitionbox"><abbr class="definition">This Floortime step involves the adult subtly increasing or changing the challenges in the activity or play. It encourages the child to explore novel movements, activities, ideas, or modes of communication. </abbr></abbr><abbr class="term">expand</abbr></abbr>   the play and your child’s abilities to communicate and think.
