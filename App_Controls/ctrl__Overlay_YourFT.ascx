@@ -6,7 +6,7 @@
     <div class="back"><a href="#" onclick="HideEvaluationAndGoBack();return false;" class="btn btn_thin_blue"><span>&laquo; Back</span></a></div>
 
 
-    <h1>Your Floortime Session</h1>
+    <h1>Evaluating Amberlee’s Session</h1>
     <h2>Interactive Evaluation</h2>
 
     <ol class="ol_gray" style="margin-bottom:30px;">

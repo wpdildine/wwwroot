@@ -95,7 +95,15 @@
         <div class="cont">
 
             <div class="btn_holder">
-                <label>Reviewing the <a target="_blank" style="color: #134674" href="/App_PDF/Greenspan_GeneralTechniquesPDF_FollowTheLead.pdf">general techniques for "Follow the Lead" (print out)</a> may be useful in evaluating video #2 </label>
+
+            <label>Reviewing the general techniques for<a href="#openModal"> "Follow the Lead" (print out) </a>may be useful in evaluating video #2 </label>
+            <div id="openModal" class="modalDialog">
+                <div>
+                    <a href="#close" title="Close" class="close">X</a>
+                    <h2>Follow the Lead</h2>
+                    <object data="/App_PDF/Greenspan_GeneralTechniquesPDF_FollowTheLead.pdf" type="application/pdf" width=100% height="100%" ><a href="/App_PDF/Greenspan_GeneralTechniquesPDF_FollowTheLead.pdf" ></a></object>
+                </div>
+            </div>
                 <a href="#" onclick="turnOnSection('6');DoEvaluation();return false;" class="btn btn_thin_red"><span>Do The Interactive Evaluation</span></a>
 
             </div>

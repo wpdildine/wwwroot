@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctrl_FloortimeSession_Setup.ascx.cs" Inherits="App_Controls_ctrl_FloortimeSession_Setup" %>
 
 <div id="content">
-    <h1>Setup Your Floortime Space</h1>
+    <h1>Set Up Your Floortime Space</h1>
                     
     <div class="p">
         Floortime therapy can occur anywhere, at any time.  Backyards, bathtubs, playgrounds and even swimming pools can all set the stage for joyful back and forth communication.  Most people, though, prefer to follow these basic guidelines:                     
@@ -66,7 +66,7 @@
     </div>
 
     <div class="btn_holder" style="margin-bottom: 30px">
-        <label>Once you have setup your own Floortime space, you are ready to begin! </label>
+        <label>Once you have set up your own Floortime space, you are ready to begin! </label>
         <a href="/en-us/yourFT/evaluate/default.aspx"  class="btn btn_thin_blue"><span>Beginning Your Floortime Session</span></a>
 
     </div>

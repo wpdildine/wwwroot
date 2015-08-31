@@ -156,9 +156,8 @@
     // ]]></script>
     </div>
 
-    <p class="instruction c_dgray" style="text-indent: 165px">
-        CLICK BELOW
-    </p>
+    <!--<p class="instruction c_dgray" style="text-indent: 165px">
+    </p>-->
     <a href="/en-us/steps/challenge/default.aspx" class="btn btn_fat_blue"><span>Continue On: Step #2 Challenging Your Child</span></a>
 
 

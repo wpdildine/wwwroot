@@ -153,33 +153,20 @@
             </div>
 
         </li>
-        <li><span class="num">6</span>If or when the activity didn’t progress, did the child:
+        <li><span class="num">6</span>If the activity didn’t progress, which of these did the child do?
+
 
             <div class="row">
-                <input id="q6_a" type="radio" class="rad" name="q6" onchange="showAnswers('q6');return false;" />
-                <label for="q6_a">Stop participating in the activity? - Yes
-                    <em class="ans q6">INCORRECT!</em> </label> 
-            </div>
-            <div class="row">
                 <input id="q6_b" type="radio" class="rad" name="q6" onchange="showAnswers('q6');return false;" />
-                <label for="q6_b">Stop participating in the activity? - No
+                <label for="q6_b">Stop participating in the activity?
                     <em class="ans q6">INCORRECT!</em> </label> 
             </div>
             <div class="row">
                 <input id="q6_c" type="radio" class="rad" name="q6" onchange="showAnswers('q6');return false;" />
-                <label for="q6_c">Repeat an action? - Yes
+                <label for="q6_c">Repeat an action?
                     <em class="ans q6 correct">CORRECT! He continued to run in circles. </em> </label> 
             </div>
-            <div class="row">
-                <input id="q6_d" type="radio" class="rad" name="q6" onchange="showAnswers('q6');return false;" />
-                <label for="q6_d">Repeat an action? - No
-                    <em class="ans q6">INCORRECT!</em> </label> 
-            </div>
-            <div class="row">
-                <input id="q6_e" type="radio" class="rad" name="q6" onchange="showAnswers('q6');return false;" />
-                <label for="q6_e">Not Applicable
-                    <em class="ans q6">INCORRECT!</em> </label> 
-            </div>
+
  
 
         </li>

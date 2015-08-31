@@ -10,12 +10,10 @@
     }
 
     .e_overlay_content {
-
-        
-        width: 877px;
+        max-width: 70%;
         float: left;
         top: 100px;
-        left: 110px;
+        left: 15%;
         z-index: 101;
         position: absolute;
         background: #2e2e2e;

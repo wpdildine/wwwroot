@@ -2,7 +2,7 @@
 
 <div id="content">
 
-    <h1 class="tall">Expanding Interaction between you and <br />your child</h1>
+    <h1 class="tall">Expanding Interaction between you and your child</h1>
                     
     <p>
         Once you and your child are interacting, the play can easily become repetitive.  It’s up to you to <abbr class="vocab"><abbr class="definitionbox"><abbr class="definition">This Floortime step involves the adult subtly increasing or changing the challenges in the activity or play. It encourages the child to explore novel movements, activities, ideas, or modes of communication. </abbr></abbr><abbr class="term">expand</abbr></abbr> your shared experience – without taking charge or directing the play.  To do this, try asking questions (“Is this engine going too fast?” “Can the doll wear this dress?”). Another option is to create a cranky character that won’t follow direction (“No, I WON’T go to sleep.  I want to DANCE!”).   This may need a bit of practice because as parents we want to keep things going and we know what could/should come next. It is so hard not to fill in the gaps with directions. 

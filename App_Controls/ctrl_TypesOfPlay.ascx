@@ -25,8 +25,8 @@
 
         <label>Floortime with movement</label>
         <img class="title" src="/App_Images/img_types1.png" alt="Sensory Play" />
-        <div class="p">The most basic type of social play is all about physical sensations.  Very young children enjoy playing chase games, twirling, rolling, tickling, and bouncing.  All these activities are great for Floortime, as they help satisfy a child’s sensory needs while also building positive relationships. </div>
-        <h3 class="c_dblue"">Is your child ready<br /> for sensory play?</h3>
+        <div class="p">The most basic type of social play is all about physical sensations.  Very young children enjoy playing chase games, twirling, rolling, tickling, and bouncing.  This sensory play is great for Floortime, as it helps satisfy a child’s sensory needs while also building positive relationships. </div>
+        <h3 class="c_dblue"">Is your child ready<br /> for <abbr class="vocab"><abbr class="definitionbox"><abbr class="definition">This is a form of play in which a child is engaged mainly through his or her senses, and not through objects or ideas. A child who wants simply to be chased and hugged, who needs the movement or physical contact to feel regulated, is engaging in sensory play; a child who wants to be chased and hugged because she is pretending to be a runaway engine is actually engaging in symbolic play (at a higher developmental level).</abbr></abbr><abbr class="term">sensory play</abbr></abbr>?</h3>
         <a href="#" onclick="toggleMedia('1');return false;" class="mediabtn mediabtn_short3">Play Audio Clip
             <img src="/App_Images/ico_audio_med_blue.png" alt="Play Audio" />
         </a>

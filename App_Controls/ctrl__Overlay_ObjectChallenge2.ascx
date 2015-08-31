@@ -25,7 +25,7 @@
             <div class="row">
                 <input id="q2_c" type="radio" class="rad" name="q2" onchange="showAnswers('q2');return false;" />
                 <label for="q2_c">Move the toy very slowly and in small increments.
-                    <em class="ans q2 correct">Slow and gradual movement gives Caroline a change to make a decision about what she wants to do and how she can do it comfortably. Because of her motor delays, fast movement can be too difficult for her to respond to.</em> </label> 
+                    <em class="ans q2 correct">Slow and gradual movement gives Caroline a chance to make a decision about what she wants to do and how she can do it comfortably. Because of her motor delays, fast movement can be too difficult for her to respond to.</em> </label>
             </div>
 
         </li>
